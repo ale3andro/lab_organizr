@@ -1,0 +1,8 @@
+{
+    "name" : "Επανεκκίνηση Γραφικού Περιβάλλοντος",
+    "asRoot": "1",
+    "arguments" : [],
+    "command" : "sudo service lightdm restart"
+}
+
+

@@ -1,0 +1,6 @@
+{
+    "name" : "Τερματισμός διεργασίας",
+    "asRoot": "1",
+    "arguments" : [{"id" : "1", "type" : "textBox", "text" : "Όνομα διεργασίας;"} ],
+    "command" : "sudo killall $1"
+}

@@ -1,0 +1,6 @@
+{
+    "name" : "Λήψη αρχείων",
+    "asRoot": "0",
+    "arguments" : [ {"id" : "0", "type" : "get"} ],
+    "command" : "scp"
+}

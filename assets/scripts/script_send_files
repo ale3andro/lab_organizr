@@ -1,0 +1,6 @@
+{
+    "name" : "Αποστολή αρχείου",
+    "asRoot": "0",
+    "arguments" : [ {"id" : "0", "type" : "put"} ],
+    "command" : "scp"
+}
