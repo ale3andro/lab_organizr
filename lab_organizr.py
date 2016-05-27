@@ -120,6 +120,7 @@ class labOrganizr:
         self.w4_radiobutton_online_storage = self.builder.get_object("receivefile_radiobutton_online_storage")
         self.w4_radiobutton_offline_storage = self.builder.get_object("receivefile_radiobutton_offline_storage")
         self.w4_combo_classes = self.builder.get_object("receive_files_classes_combobox")
+        self.w4_combo_classes_first_run = True
         self.w4_combo_classes_liststore = self.builder.get_object("receive_files_classes_liststore")
         self.w4_combo_dates = self.builder.get_object("receive_files_dates_combobox")
         self.w4_combo_dates_liststore = self.builder.get_object("receive_files_dates_liststore")
@@ -235,11 +236,17 @@ class labOrganizr:
         self.w4_radiobutton_online_storage.set_active(True)
         self.w4_button_ok.set_sensitive(False)
         if self.window4.run() == 1:
+            index = self.w4_combo_classes.get_active()
+            model = self.w4_combo_classes.get_model()
+            selectedClass = model[index][0]
+            index = self.w4_combo_dates.get_active()
+            model = self.w4_combo_dates.get_model()
+            selectedDate = model[index][0]
             self.window4.hide()
-            return
+            return (selectedClass, selectedDate)
         else:
             self.window4.hide()
-            return
+            return (-1, -1)
 
     def updateW4(self):
         self.w4_combo_dates_liststore.clear()
@@ -252,11 +259,18 @@ class labOrganizr:
             storageDir = self.settings['general']['offline_save_folder'] + selectedClass + "/"
         try:
             for item in os.listdir(storageDir):
-                self.w4_combo_dates_liststore.append([str(item)])
-                self.w4_combo_dates.set_active(0)
+                if os.path.isdir(storageDir + item):
+                    self.w4_combo_dates_liststore.append([str(item)])
+                    self.w4_combo_dates.set_active(0)
             self.w4_button_ok.set_sensitive(True)
         except OSError:
             self.w4_button_ok.set_sensitive(False)
+
+    def on_receive_files_classes_combobox_changed(self, *args):
+        if (self.w4_combo_classes_first_run):
+            self.w4_combo_classes_first_run = False
+        else:
+            self.updateW4()
 
     def on_receivefile_radiobutton_online_storage_toggled(self, *args):
         self.onlineStorage = self.w4_radiobutton_online_storage.get_active()
@@ -378,8 +392,7 @@ class labOrganizr:
                         return
 
                 if (actionType == "return"):
-                    school_class, date = self.show_return_files_entry_dialog()
-                    return
+                    return_school_class, return_date = self.show_return_files_entry_dialog()
 
                 queue = Queue.Queue()
                 for item in self.selectedPcs:
@@ -413,6 +426,19 @@ class labOrganizr:
                             destination = "/home/" + username + "/" + desktopFolderName + "/" + ntpath.basename((put_scpFile))
                             destination.encode('utf-8')
                             queue.put(('put', hostname, username, password, destination, put_scpFile))
+                        elif (actionType == "return"):
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log)
+                            sshThread.daemon = True
+                            sshThread.start()
+                            destination = "/home/" + username + "/" + desktopFolderName + "/"
+                            destination.encode('utf-8')
+                            if self.onlineStorage:
+                                origin = self.settings['general']['online_save_folder']
+                            else:
+                                origin = self.settings['general']['offline_save_folder']
+                            origin = origin + str(return_school_class) + "/" + str(return_date) + "/" + str(friendlyname) + "/"
+                            origin = origin.encode('utf-8')
+                            queue.put(('return', hostname, username, password, origin, destination))
                         else:
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log)
                             sshThread.daemon = True

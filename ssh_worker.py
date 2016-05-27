@@ -10,6 +10,8 @@ class sshWorker(threading.Thread):
         self.liststore_log = liststore_log
     def get_time(self):
         return str(time.strftime('%H:%M:%S', time.localtime(time.time())))
+    def list_local_files(self, dirName):
+        return 0
     def list_remote_files(self, theHostname, theUsername, thePassword, dirName, extension):
         ssh = paramiko.SSHClient()
         ssh.load_system_host_keys()
@@ -64,7 +66,6 @@ class sshWorker(threading.Thread):
                     t.connect(username=username, password=password)
                     sftp = paramiko.SFTPClient.from_transport(t)
                     files2Get = self.list_remote_files(hostname, username, password, origin, extension)
-                    print origin, destination
                     if (len(files2Get)==0):
                         self.liststore_log.append([self.get_time(), hostname, "get", "Δεν υπάρχουν αρχεία στον φάκελο"])
                     else:
@@ -76,6 +77,26 @@ class sshWorker(threading.Thread):
                         self.liststore_log.append([self.get_time(), hostname, "get", "Επιτυχής λήψη αρχείων."])
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "get", "Αδυναμία σύνδεσης ssh_get"])
+                self.queue.task_done()
+            elif (details[0]=="return"):
+                origin = details[4]
+                destination = details[5]
+                try:
+                    t = paramiko.Transport((hostname, 22))
+                    t.set_keepalive(5)
+                    t.connect(username=username, password=password)
+                    sftp = paramiko.SFTPClient.from_transport(t)
+                    if not os.path.isdir(origin):
+                        self.liststore_log.append([self.get_time(), hostname, "return", "Δεν υπάρχει φάκελος για τον υπολογιστή "])
+                        return
+                    if (len(os.listdir(origin)) == 0):
+                        self.liststore_log.append([self.get_time(), hostname, "return", "Δεν υπάρχουν αρχεία για επιστροφή στο φάκελο"])
+                    else:
+                        for item in os.listdir(origin):
+                            sftp.put(origin+item, destination+item)
+                        self.liststore_log.append([self.get_time(), hostname, "return", "Επιτυχής αποστολή αρχείων."])
+                except paramiko.SSHException:
+                    self.liststore_log.append([self.get_time(), hostname, "return", "Αδυναμία σύνδεσης ssh_return"])
                 self.queue.task_done()
             elif (details[0]=="ssh"):
                 command = details[4]
