@@ -22,6 +22,7 @@ class labOrganizr:
         self.window2 = self.builder.get_object("textEntryDialog_ted")
         self.window3 = self.builder.get_object("textEntryDialog_rf")
         self.window4 = self.builder.get_object("textEntryDialog_receivefiles")
+        self.window5 = self.builder.get_object("window_actionProgress")
         self.window1.connect('destroy', lambda w: Gtk.main_quit())
 
         # Message Log Creation
@@ -133,6 +134,17 @@ class labOrganizr:
         cell = Gtk.CellRendererText()
         self.w4_combo_dates.pack_start(cell, True)
         self.w4_combo_dates.add_attribute(cell, "text", 0)
+        # Window 5
+        self.w5_button_close = self.builder.get_object("actionProgress_close_button")
+        self.w5_treeview = self.builder.get_object("actions_progress_treeview")
+        self.w5_treeview_liststore = self.builder.get_object("action_progress_liststore")
+        self.w5_treeview_columns = ["ip", "result"]
+        for i in range(2):
+            cell = Gtk.CellRendererText()
+            col = Gtk.TreeViewColumn(self.w5_treeview_columns[i], cell, text=i)
+            self.w5_treeview.append_column(col)
+        self.w5_treeview_liststore.clear()
+
 
         # Μεταβλητές που θα χρειαστούν για την ssh σύνδεση
         self.selectedPcs = {}
@@ -183,6 +195,7 @@ class labOrganizr:
         # Μετά έλεγχος για το ποιό action επιλέχθηκε
         if (len(self.w1_treeview_selected_modules_liststore)==0):
             show_warning_window(self.window1, "Πρέπει να επιλέξεις ενέργεια!")
+            return
         else:
             for item in self.w1_treeview_selected_modules_liststore:
                 self.selectedActions.append(item[0])
@@ -301,6 +314,9 @@ class labOrganizr:
     def get_date(self):
         return datetime.date.today()
 
+    def on_actionProgress_close_button_clicked(self, *args):
+        self.window5.hide()
+
     def list_remote_files(self, theHostname, theUsername, thePassword, dirName):
         ssh = paramiko.SSHClient()
         ssh.load_system_host_keys()
@@ -395,6 +411,10 @@ class labOrganizr:
                     return_school_class, return_date = self.show_return_files_entry_dialog()
 
                 queue = Queue.Queue()
+                self.w5_treeview_liststore.clear()
+                for item in self.selectedPcs:
+                    self.w5_treeview_liststore.append([self.selectedPcs[item]['ip'], 'Σε αναμονή...'])
+                self.window5.show_all()
                 for item in self.selectedPcs:
                     hostname = self.selectedPcs[item]['ip']
                     friendlyname = self.selectedPcs[item]['id']
@@ -420,7 +440,7 @@ class labOrganizr:
                             destination.encode('utf-8')
                             queue.put(('get', hostname, username, password, origin, destination, extension))
                         elif (actionType == "put"):
-                            sshThread = sshWorker(queue, friendlyname, self.liststore_log)
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
                             destination = "/home/" + username + "/" + desktopFolderName + "/" + ntpath.basename((put_scpFile))
@@ -440,7 +460,7 @@ class labOrganizr:
                             origin = origin.encode('utf-8')
                             queue.put(('return', hostname, username, password, origin, destination))
                         else:
-                            sshThread = sshWorker(queue, friendlyname, self.liststore_log)
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
                             if (command.count('$')!=0):

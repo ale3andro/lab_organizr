@@ -3,15 +3,24 @@
 import threading, Queue, paramiko, socket, os, time
 
 class sshWorker(threading.Thread):
-    def __init__(self, queue, name, liststore_log):
+    def __init__(self, queue, name, liststore_log, liststore_action_progress):
         threading.Thread.__init__(self)
         self.queue = queue
         self.name = name
         self.liststore_log = liststore_log
+        self.liststore_action_progress = liststore_action_progress
+
     def get_time(self):
         return str(time.strftime('%H:%M:%S', time.localtime(time.time())))
+
     def list_local_files(self, dirName):
         return 0
+
+    def modify_line_to_action_progress_log(self, theFriendlyName, theMsg):
+        for item in self.liststore_action_progress:
+            if item[0] == theFriendlyName:
+                item[1] = theMsg
+
     def list_remote_files(self, theHostname, theUsername, thePassword, dirName, extension):
         ssh = paramiko.SSHClient()
         ssh.load_system_host_keys()
@@ -36,6 +45,7 @@ class sshWorker(threading.Thread):
         except paramiko.SSHException:
             self.liststore_log.append([self.get_time(), str(theHostname), "thread-list_remote_files-3", "SSH Exception."])
         return outFiles
+
     def run(self):
         while True:
             # Get the work from the queue and expand the tuple
@@ -53,6 +63,7 @@ class sshWorker(threading.Thread):
                     sftp = paramiko.SFTPClient.from_transport(t)
                     sftp.put(put_scpFile, destination)
                     self.liststore_log.append([self.get_time(), hostname, "put", "Επιτυχής αποστολή αρχείων."])
+                    self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "put", "Αδυναμία σύνδεσης ssh_put"])
                 self.queue.task_done()
