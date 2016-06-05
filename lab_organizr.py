@@ -271,10 +271,16 @@ class labOrganizr:
         else:
             storageDir = self.settings['general']['offline_save_folder'] + selectedClass + "/"
         try:
+            allItems = []
             for item in os.listdir(storageDir):
                 if os.path.isdir(storageDir + item):
-                    self.w4_combo_dates_liststore.append([str(item)])
-                    self.w4_combo_dates.set_active(0)
+                    #self.w4_combo_dates_liststore.append([str(item)])
+                    #self.w4_combo_dates.set_active(0)
+                    allItems.append(item)
+            allItems.sort()
+            for item in allItems:
+                self.w4_combo_dates_liststore.append([str(item)])
+                self.w4_combo_dates.set_active(0)
             self.w4_button_ok.set_sensitive(True)
         except OSError:
             self.w4_button_ok.set_sensitive(False)
@@ -409,6 +415,8 @@ class labOrganizr:
 
                 if (actionType == "return"):
                     return_school_class, return_date = self.show_return_files_entry_dialog()
+                    if (return_school_class==-1 or return_date ==-1):
+                        return
 
                 queue = Queue.Queue()
                 self.w5_treeview_liststore.clear()
