@@ -428,7 +428,7 @@ class labOrganizr:
                     execute = True
                     if (execute):
                         if (actionType == "get"):
-                            sshThread = sshWorker(queue, friendlyname, self.liststore_log)
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
                             origin = "/home/" + username + "/" + desktopFolderName + "/"
@@ -447,7 +447,7 @@ class labOrganizr:
                             destination.encode('utf-8')
                             queue.put(('put', hostname, username, password, destination, put_scpFile))
                         elif (actionType == "return"):
-                            sshThread = sshWorker(queue, friendlyname, self.liststore_log)
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
                             destination = "/home/" + username + "/" + desktopFolderName + "/"

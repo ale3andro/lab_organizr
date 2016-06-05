@@ -66,6 +66,7 @@ class sshWorker(threading.Thread):
                     self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "put", "Αδυναμία σύνδεσης ssh_put"])
+                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
                 self.queue.task_done()
             elif (details[0]=="get"):
                 origin = details[4]
@@ -79,6 +80,7 @@ class sshWorker(threading.Thread):
                     files2Get = self.list_remote_files(hostname, username, password, origin, extension)
                     if (len(files2Get)==0):
                         self.liststore_log.append([self.get_time(), hostname, "get", "Δεν υπάρχουν αρχεία στον φάκελο"])
+                        self.modify_line_to_action_progress_log(hostname, "Δεν υπάρχουν αρχεία στον φάκελο")
                     else:
                         for file in files2Get:
                             print file + ":"
@@ -86,8 +88,10 @@ class sshWorker(threading.Thread):
                                 os.makedirs(destination)
                             sftp.get(origin + file, destination + file)
                         self.liststore_log.append([self.get_time(), hostname, "get", "Επιτυχής λήψη αρχείων."])
+                        self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "get", "Αδυναμία σύνδεσης ssh_get"])
+                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
                 self.queue.task_done()
             elif (details[0]=="return"):
                 origin = details[4]
@@ -98,16 +102,20 @@ class sshWorker(threading.Thread):
                     t.connect(username=username, password=password)
                     sftp = paramiko.SFTPClient.from_transport(t)
                     if not os.path.isdir(origin):
-                        self.liststore_log.append([self.get_time(), hostname, "return", "Δεν υπάρχει φάκελος για τον υπολογιστή "])
+                        self.liststore_log.append([self.get_time(), hostname, "return", "Δεν υπάρχει φάκελος για τον υπολογιστή"])
+                        self.modify_line_to_action_progress_log(hostname, "Δεν υπάρχει φάκελος για τον υπολογιστή")
                         return
                     if (len(os.listdir(origin)) == 0):
                         self.liststore_log.append([self.get_time(), hostname, "return", "Δεν υπάρχουν αρχεία για επιστροφή στο φάκελο"])
+                        self.modify_line_to_action_progress_log(hostname, "Δεν υπάρχουν αρχεία για επιστροφή στο φάκελο")
                     else:
                         for item in os.listdir(origin):
                             sftp.put(origin+item, destination+item)
                         self.liststore_log.append([self.get_time(), hostname, "return", "Επιτυχής αποστολή αρχείων."])
+                        self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "return", "Αδυναμία σύνδεσης ssh_return"])
+                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
                 self.queue.task_done()
             elif (details[0]=="ssh"):
                 command = details[4]
@@ -118,6 +126,7 @@ class sshWorker(threading.Thread):
                     ssh.connect(hostname=hostname, username=username, password=password, timeout=5)
                 except socket.error:
                     self.liststore_log.append([self.get_time(), hostname, "ssh", "Αδυναμία σύνδεσης ssh"])
+                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
                 try:
                     ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command.encode('utf-8'))
                     for line in ssh_stdout.read().splitlines():
@@ -128,8 +137,9 @@ class sshWorker(threading.Thread):
                         countLines += 1
                     if (countLines == 0):
                         self.liststore_log.append([self.get_time(), hostname, "ssh", "Επιτυχής εκτέλεση εντολής:" + command.encode('utf-8')])
+                        self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
-                    self.add_line_to_log(str(theHostname), str("ssh::paramiko.SSHException"), "Channel closed.")
                     self.liststore_log.append(
                         [self.get_time(), hostname, "ssh-error", "Αποτυχία εκτέλεση εντολής:" + command.encode('utf-8')])
+                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh - ssh exception")
                 self.queue.task_done()
