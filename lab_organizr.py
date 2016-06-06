@@ -201,7 +201,6 @@ class labOrganizr:
             for item in self.w1_treeview_selected_modules_liststore:
                 self.selectedActions.append(item[1])
                 print item[0], item[1]
-        return
         self.makeConnections()
 
     def getClientDetailsFromClassId(self, classId):

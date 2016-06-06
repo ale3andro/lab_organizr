@@ -465,17 +465,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="w1_button_clear_log">
-                <property name="label" translatable="yes">Καθαρισμός log</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <signal name="clicked" handler="on_w1_button_clear_log_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
-              </packing>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>
@@ -510,6 +500,20 @@
             <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="w1_button_clear_log">
+            <property name="label" translatable="yes">Καθαρισμός log</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="on_w1_button_clear_log_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
