@@ -124,22 +124,23 @@ class sshWorker(threading.Thread):
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 try:
                     ssh.connect(hostname=hostname, username=username, password=password, timeout=5)
+
+                    try:
+                        ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command.encode('utf-8'))
+                        for line in ssh_stdout.read().splitlines():
+                            self.liststore_log.append([self.get_time(), hostname, "ssh-responce", line])
+                        countLines = 0
+                        for line in ssh_stderr.read().splitlines():
+                            self.liststore_log.append([self.get_time(), hostname, "ssh-error", line])
+                            countLines += 1
+                        if (countLines == 0):
+                            self.liststore_log.append([self.get_time(), hostname, "ssh", "Επιτυχής εκτέλεση εντολής:" + command.encode('utf-8')])
+                            self.modify_line_to_action_progress_log(hostname, "Ok")
+                    except paramiko.SSHException:
+                        self.liststore_log.append(
+                            [self.get_time(), hostname, "ssh-error", "Αποτυχία εκτέλεση εντολής:" + command.encode('utf-8')])
+                        self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh - ssh exception")
                 except socket.error:
                     self.liststore_log.append([self.get_time(), hostname, "ssh", "Αδυναμία σύνδεσης ssh"])
                     self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
-                try:
-                    ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command.encode('utf-8'))
-                    for line in ssh_stdout.read().splitlines():
-                        self.liststore_log.append([self.get_time(), hostname, "ssh-responce", line])
-                    countLines = 0
-                    for line in ssh_stderr.read().splitlines():
-                        self.liststore_log.append([self.get_time(), hostname, "ssh-error", line])
-                        countLines += 1
-                    if (countLines == 0):
-                        self.liststore_log.append([self.get_time(), hostname, "ssh", "Επιτυχής εκτέλεση εντολής:" + command.encode('utf-8')])
-                        self.modify_line_to_action_progress_log(hostname, "Ok")
-                except paramiko.SSHException:
-                    self.liststore_log.append(
-                        [self.get_time(), hostname, "ssh-error", "Αποτυχία εκτέλεση εντολής:" + command.encode('utf-8')])
-                    self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh - ssh exception")
                 self.queue.task_done()
