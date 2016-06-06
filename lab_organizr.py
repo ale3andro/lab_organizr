@@ -69,7 +69,7 @@ class labOrganizr:
             self.actions.append(dict(id=item['id'], name=item['name'], file=item['file']))
 
         self.w1_treeview_selected_modules = self.builder.get_object("w1_treeview_selected_modules")
-        self.w1_treeview_selected_modules_liststore = Gtk.ListStore(int, str)
+        self.w1_treeview_selected_modules_liststore = Gtk.ListStore(int, str, int)
         for i in range(2):
             cell = Gtk.CellRendererText()
             col = Gtk.TreeViewColumn(self.w1_treeview_columns_selected[i], cell, text=i)
@@ -176,7 +176,7 @@ class labOrganizr:
         selection = self.w1_treeview_available_modules.get_selection().get_selected()
         numSelectedModules = len(self.w1_treeview_selected_modules_liststore)
         if (selection[1]!=None):
-            item = [numSelectedModules+1, selection[0].get_value(selection[1],1) ]
+            item = [numSelectedModules+1, selection[0].get_value(selection[1],1), selection[0].get_value(selection[1],0)]
             self.w1_treeview_selected_modules_liststore.append(item)
 
     def on_w1_button_move_up_clicked(self, *args):
@@ -225,7 +225,7 @@ class labOrganizr:
             return
         else:
             for item in self.w1_treeview_selected_modules_liststore:
-                self.selectedActions.append(item[0])
+                self.selectedActions.append(item[2])
         self.makeConnections()
 
     def getClientDetailsFromClassId(self, classId):
