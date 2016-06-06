@@ -977,4 +977,28 @@
       <action-widget response="1">receive_files_ok_button</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkWindow" id="window_actionProgress1">
+    <property name="width_request">440</property>
+    <property name="height_request">250</property>
+    <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="modal">True</property>
+    <property name="window_position">center</property>
+    <property name="default_width">440</property>
+    <property name="default_height">250</property>
+    <property name="decorated">False</property>
+    <child>
+      <object class="GtkBox" id="box4">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>

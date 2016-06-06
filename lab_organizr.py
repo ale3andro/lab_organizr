@@ -2,24 +2,35 @@
 # -*- coding: utf-8 -*-
 
 try:
-    import json, sys, os, codecs, paramiko, ntpath, socket, time
-    import threading, Queue, datetime, re
-
-    from gi.repository import GObject
     from pcs import *
+    import json, sys, os, codecs, paramiko, ntpath, socket, time, threading, Queue, datetime, re
+    from gi.repository import GObject, GLib
     from ssh_worker import sshWorker
 except ImportError:
-    show_warning_window(self.window1, "Κάποια από τις εξαρτήσεις της εφαρμογής δεν έχουν εγκατασταθεί")
+    dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Κάποια από τις εξαρτήσεις της εφαρμογής δεν έχουν εγκατασταθεί")
+    if (dialog.run() == Gtk.ResponseType.OK):
+        dialog.destroy()
     exit(-1)
 
 GObject.threads_init()
+
+def show_error_window(message):
+    dialog = Gtk.MessageDialog(None, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, message)
+    if (dialog.run()==Gtk.ResponseType.OK):
+            dialog.destroy()
+    return
 
 class labOrganizr:
     def __init__(self):
         reload(sys)
         sys.setdefaultencoding('utf8')
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("assets/lab_organizr_gui.glade")
+        try:
+            self.builder.add_from_file("assets/lab_organizr_gui.glade")
+        except GLib.Error:
+            show_error_window("Δεν βρέθηκε το glade αρχείο του GUI!")
+            exit(-1)
+
         self.builder.connect_signals(self)
 
         self.window1 = self.builder.get_object("window1")
@@ -41,11 +52,12 @@ class labOrganizr:
 
         self.settings = []
         self.actions = []
-        json_data = open("assets/settings.json")
+
         try:
+            json_data = open("assets/settings.json")
             self.settings = json.load(json_data)
         except:
-            show_warning_window(self.window1, "Σφάλμα στο αρχείο ρυθμίσεων.")
+            show_error_window("Σφάλμα στο αρχείο ρυθμίσεων.")
             exit(-1)
         json_data.close()
 
@@ -94,11 +106,11 @@ class labOrganizr:
         self.w2_label = self.builder.get_object("ted_label")
         self.w2_combo = self.builder.get_object("ted_combobox")
         self.w2_combo_liststore = self.builder.get_object("liststore_ted_combobox")
-        json_data = open("assets/known_processes.json")
         try:
+            json_data = open("assets/known_processes.json")
             self.known_processes = json.load(json_data)
         except:
-            show_warning_window(self.window1, "Σφάλμα στο αρχείο των γνωστών processes.")
+            show_error_window("Σφάλμα στο αρχείο των γνωστών processes.")
             exit(-1)
         json_data.close()
         for item in self.known_processes['known_processes']:
@@ -146,12 +158,16 @@ class labOrganizr:
             self.w5_treeview.append_column(col)
         self.w5_treeview_liststore.clear()
 
-
+        self.newWin = self.builder.get_object("window_actionProgress1")
+        self.theBox = self.builder.get_object("box4")
         # Μεταβλητές που θα χρειαστούν για την ssh σύνδεση
         self.selectedPcs = {}
         self.selectedActions = []
         self.onlineStorage = True
         self.window1.show_all()
+
+    def on_actionProgress_close_button1_clicked(self, *args):
+        self.newWin.close()
 
     def on_w1_button_clear_log_clicked(self, *args):
         self.liststore_log.clear()
@@ -370,7 +386,22 @@ class labOrganizr:
             self.add_line_to_log(str(theHostname), str("ssh::paramiko.SSHException"), "Channel closed.")
 
     def makeConnections(self):
-       for item in self.selectedActions:
+        # Start of new Code
+        myNotebook = Gtk.Notebook()
+        myNotebook.set_tab_pos(Gtk.PositionType.LEFT)
+        myNotebook.set_scrollable(True)
+        for item in self.selectedActions:
+           myNotebook.append_page(Gtk.Label(str(item)), Gtk.Label(str(item)))
+
+        self.theBox.pack_start(myNotebook, True, True, 0)
+        closeButton = Gtk.Button("Κλείσιμο")
+        closeButton.connect("clicked", self.on_actionProgress_close_button1_clicked)
+        self.theBox.pack_start(closeButton, False, True, 0)
+
+        self.newWin.show_all()
+        # End of new code
+
+        for item in self.selectedActions:
             if (self.getFilenameFromActionId(item)!=-1):
                 filename = os.path.dirname(os.path.realpath(__file__)) + "/assets/" + self.getFilenameFromActionId(item)
             if (os.path.isfile(filename)):
@@ -422,9 +453,12 @@ class labOrganizr:
 
                 queue = Queue.Queue()
                 self.w5_treeview_liststore.clear()
-                for item in self.selectedPcs:
-                    self.w5_treeview_liststore.append([self.selectedPcs[item]['ip'], 'Σε αναμονή...'])
-                self.window5.show_all()
+
+                # Original Code
+                #for item in self.selectedPcs:
+                #    self.w5_treeview_liststore.append([self.selectedPcs[item]['ip'], 'Σε αναμονή...'])
+                #self.window5.show_all()
+                return
                 for item in self.selectedPcs:
                     hostname = self.selectedPcs[item]['ip']
                     friendlyname = self.selectedPcs[item]['id']
