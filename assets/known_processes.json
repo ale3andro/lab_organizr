@@ -3,12 +3,11 @@
     { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
     { "app_name" : "Audacity", "process_name" : "audacity" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
-    { "app_name" : "Tuxpaint", "process_name" : "na" },
+    { "app_name" : "Tuxpaint", "process_name" : "tuxpaint" },
     { "app_name" : "Scratch 1.0", "process_name" : "squeakvm" },
     { "app_name" : "Scratch 2.0", "process_name" : "Scratch 2" },
-    { "app_name" : "PysioGame", "process_name" : "na" },
     { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
-    { "app_name" : "GCompris", "process_name" : "na" }
+    { "app_name" : "GCompris", "process_name" : "gcompris" }
   ]
 
 }

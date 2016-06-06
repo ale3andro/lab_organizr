@@ -1,12 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import json, sys, os, codecs, paramiko, ntpath, socket, time
-import threading, Queue, datetime, re
+try:
+    import json, sys, os, codecs, paramiko, ntpath, socket, time
+    import threading, Queue, datetime, re
 
-from gi.repository import GObject
-from pcs import *
-from ssh_worker import sshWorker
+    from gi.repository import GObject
+    from pcs import *
+    from ssh_worker import sshWorker
+except ImportError:
+    show_warning_window(self.window1, "Κάποια από τις εξαρτήσεις της εφαρμογής δεν έχουν εγκατασταθεί")
+    exit(-1)
 
 GObject.threads_init()
 
@@ -48,6 +52,7 @@ class labOrganizr:
         self.school_classes = self.settings['general']['school_classes'].split(',')
         #Window1 widgets
         self.w1_treeview_columns = ["id", "Όνομα"]
+        self.w1_treeview_columns_selected = ["α/α", "Όνομα"]
 
         self.w1_treeview_available_modules = self.builder.get_object("w1_treeview_available_modules")
         self.w1_treeview_available_modules_liststore = Gtk.ListStore(int, str)
@@ -67,7 +72,7 @@ class labOrganizr:
         self.w1_treeview_selected_modules_liststore = Gtk.ListStore(int, str)
         for i in range(2):
             cell = Gtk.CellRendererText()
-            col = Gtk.TreeViewColumn(self.w1_treeview_columns[i], cell, text=i)
+            col = Gtk.TreeViewColumn(self.w1_treeview_columns_selected[i], cell, text=i)
             self.w1_treeview_selected_modules.append_column(col)
         self.w1_treeview_selected_modules.set_model(self.w1_treeview_selected_modules_liststore)
 
@@ -159,14 +164,36 @@ class labOrganizr:
         if (len(self.w1_treeview_selected_modules_liststore)==0):
             return
         selection = self.w1_treeview_selected_modules.get_selection().get_selected()
+        numSelectedModules = len(self.w1_treeview_selected_modules_liststore) # Συνολικός αριθμός επιλεγμένων modules
+        numSelectedModule = selection[0].get_value(selection[1],0) # Το α/α του module που θα διαγραφεί
         if (selection[1]!=None):
+            for item in self.w1_treeview_selected_modules_liststore:
+                if (item[0]>=numSelectedModule):
+                    item[0] -= 1
             self.w1_treeview_selected_modules_liststore.remove(selection[1])
 
     def on_w1_button_move_right_clicked(self, *args):
         selection = self.w1_treeview_available_modules.get_selection().get_selected()
+        numSelectedModules = len(self.w1_treeview_selected_modules_liststore)
         if (selection[1]!=None):
-            item = [selection[0].get_value(selection[1],0), selection[0].get_value(selection[1],1) ]
+            item = [numSelectedModules+1, selection[0].get_value(selection[1],1) ]
             self.w1_treeview_selected_modules_liststore.append(item)
+
+    def on_w1_button_move_up_clicked(self, *args):
+        if (len(self.w1_treeview_selected_modules_liststore) == 0):
+            return
+        selection = self.w1_treeview_selected_modules.get_selection().get_selected()
+        if (selection[1] != None):
+            print "Move up!"
+            return
+
+    def on_w1_button_move_down_clicked(self, *args):
+        if (len(self.w1_treeview_selected_modules_liststore) == 0):
+            return
+        selection = self.w1_treeview_selected_modules.get_selection().get_selected()
+        if (selection[1] != None):
+            print "Move down!"
+            return
         
     def on_w1_button_select_pcs_all_clicked(self, *args):
         self.w1_treeview_select_pcs.get_selection().select_all()
