@@ -64,9 +64,10 @@ class sshWorker(threading.Thread):
                     sftp.put(put_scpFile, destination)
                     self.liststore_log.append([self.get_time(), hostname, "put", "Επιτυχής αποστολή αρχείων."])
                     self.modify_line_to_action_progress_log(hostname, "Ok")
-                except paramiko.SSHException:
+                except paramiko.SSHException as e:
                     self.liststore_log.append([self.get_time(), hostname, "put", "Αδυναμία σύνδεσης ssh_put"])
                     self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
+                    print e
                 self.queue.task_done()
             elif (details[0]=="get"):
                 origin = details[4]
@@ -124,7 +125,6 @@ class sshWorker(threading.Thread):
                 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 try:
                     ssh.connect(hostname=hostname, username=username, password=password, timeout=5)
-
                     try:
                         ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command.encode('utf-8'))
                         for line in ssh_stdout.read().splitlines():

@@ -218,7 +218,8 @@ class labOrganizr:
                             "super_username":item['super_username'],
                             "super_password":item['super_password'],
                             "client_class_label" : client_details["label"],
-                            "desktop_folder_name" : client_details["desktop_folder_name"]
+                            "desktop_folder_name" : client_details["desktop_folder_name"],
+                            "client_class" : item['client_class']
                 }
 
     def getFilenameFromActionId(self, actionId):
@@ -453,8 +454,9 @@ class labOrganizr:
                             sshThread.daemon = True
                             sshThread.start()
                             destination = "/home/" + username + "/" + desktopFolderName + "/" + ntpath.basename((put_scpFile))
-                            destination.encode('utf-8')
+                            destination.encode("utf-8")
                             queue.put(('put', hostname, username, password, destination, put_scpFile))
+                            print hostname, username, password, destination, put_scpFile
                         elif (actionType == "return"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
