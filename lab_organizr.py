@@ -3,9 +3,10 @@
 
 try:
     import json, sys, os, codecs, paramiko, ntpath, socket, time
-    import threading, Queue, datetime, re
+    import threading, Queue, datetime, logging
+    #import re
 
-    from gi.repository import GObject
+    from gi.repository import GObject, GLib
     from pcs import *
     from ssh_worker import sshWorker
 except ImportError:
@@ -16,10 +17,28 @@ GObject.threads_init()
 
 class labOrganizr:
     def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        handler = logging.FileHandler('log/app.log')
+        handler.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+        self.logger.info('Εκκίνηση εφαρμογής')
+
         reload(sys)
         sys.setdefaultencoding('utf8')
         self.builder = Gtk.Builder()
-        self.builder.add_from_file("assets/lab_organizr_gui.glade")
+        try:
+            self.builder.add_from_file("assets/lab_organizr_gui.glade")
+        except GLib.Error:
+            dialog = Gtk.MessageDialog(type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK)
+            dialog.set_markup("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
+            if (dialog.run() == Gtk.ResponseType.OK):
+                dialog.destroy()
+            self.logger.error("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
+            exit(-1)
+
         self.builder.connect_signals(self)
 
         self.window1 = self.builder.get_object("window1")
@@ -37,15 +56,20 @@ class labOrganizr:
             cell = Gtk.CellRendererText()
             col = Gtk.TreeViewColumn(self.treeview_log_labels[i], cell, text=i)
             self.treeview_log.append_column(col)
-        self.add_line_to_log("Starting", "begin", "Everything is ok!")
+        self.add_line_to_log("...", "...", "Εκκίνηση χωρίς σφάλματα")
 
         self.settings = []
         self.actions = []
-        json_data = open("assets/settings.json")
         try:
+            json_data = open("assets/settings.json")
             self.settings = json.load(json_data)
+        except IOError as e:
+            show_warning_window(self.window1, "Δεν βρέθηκε το αρχείο ρυθμίσεων")
+            self.logger.error("Δεν βρέθηκε το αρχείο ρυθμίσεων - διαδρομή assets/settings.json")
+            exit(-1)
         except:
-            show_warning_window(self.window1, "Σφάλμα στο αρχείο ρυθμίσεων.")
+            show_warning_window(self.window1, "Σφάλμα μορφής στο αρχείο ρυθμίσεων.")
+            self.logger.error("Το json αρχείο ρυθμίσεων δεν είναι έγκυρο - διαδρομή assets/settings.json")
             exit(-1)
         json_data.close()
 
@@ -94,11 +118,16 @@ class labOrganizr:
         self.w2_label = self.builder.get_object("ted_label")
         self.w2_combo = self.builder.get_object("ted_combobox")
         self.w2_combo_liststore = self.builder.get_object("liststore_ted_combobox")
-        json_data = open("assets/known_processes.json")
         try:
+            json_data = open("assets/known_processes.json")
             self.known_processes = json.load(json_data)
+        except IOError:
+            show_warning_window(self.window1, "Αδυναμία εντοπισμού αρχείου γνωστών processes")
+            self.logger.error("Αδυναμία εντοπισμού αρχείου γνωστών processes - διαδρομή assets/known_processes.json")
+            exit(-1)
         except:
-            show_warning_window(self.window1, "Σφάλμα στο αρχείο των γνωστών processes.")
+            show_warning_window(self.window1, "Σφάλμα μορφοποίησης στο αρχείο των γνωστών processes.")
+            self.logger.error("Το json αρχείο των γνωστών processes δεν είναι έγκυρο - διαδρομή assets/known_processes.json")
             exit(-1)
         json_data.close()
         for item in self.known_processes['known_processes']:
@@ -146,7 +175,6 @@ class labOrganizr:
             self.w5_treeview.append_column(col)
         self.w5_treeview_liststore.clear()
 
-
         # Μεταβλητές που θα χρειαστούν για την ssh σύνδεση
         self.selectedPcs = {}
         self.selectedActions = []
@@ -180,6 +208,7 @@ class labOrganizr:
             self.w1_treeview_selected_modules_liststore.clear()
 
     def on_w1_button_exit_clicked(self, *args):
+        self.logger.info('Τερματισμός εφαρμογής')
         Gtk.main_quit()
 
     def on_w1_button_execute_clicked(self, *args):
@@ -285,6 +314,7 @@ class labOrganizr:
                 self.w4_combo_dates.set_active(0)
             self.w4_button_ok.set_sensitive(True)
         except OSError:
+            self.logger.warn("Συνάρτηση updateW4, αδυναμία δημιουργίας λίστας αρχείων φακέλου.")
             self.w4_button_ok.set_sensitive(False)
 
     def on_receive_files_classes_combobox_changed(self, *args):
@@ -325,54 +355,15 @@ class labOrganizr:
     def on_actionProgress_close_button_clicked(self, *args):
         self.window5.hide()
 
-    def list_remote_files(self, theHostname, theUsername, thePassword, dirName):
-        ssh = paramiko.SSHClient()
-        ssh.load_system_host_keys()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        outFiles = []
-        try:
-            ssh.connect(hostname=theHostname, username=theUsername, password=thePassword, timeout=5)
-        except socket.error:
-            self.add_line_to_log(str(theHostname), str("ssh::socket_error"), "Αδυναμία σύνδεσης.")
-        try:
-            aCommand = "cd " + dirName + " && find . -maxdepth 1 -type f -printf '%f\n'"
-            print aCommand
-            ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(aCommand)
-            for line in ssh_stdout.read().splitlines():
-                outFiles.append(line)
-            for line in ssh_stderr.read().splitlines():
-                print "ERROR:" + line
-        except paramiko.SSHException:
-            self.add_line_to_log(str(theHostname), str("ssh::paramiko.SSHException"), "Channel closed.")
-        return outFiles
-
-    def run_ssh_command(self, theHostname, theUsername, thePassword, command):
-        ssh = paramiko.SSHClient()
-        ssh.load_system_host_keys()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        try:
-            ssh.connect(hostname=theHostname, username=theUsername, password=thePassword, timeout=5)
-        except socket.error:
-            self.add_line_to_log(str(theHostname), str("ssh::socket_error"), "Αδυναμία σύνδεσης.")
-
-        try:
-            print theHostname, command
-            ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command.encode('utf-8'))
-            for line in ssh_stdout.read().splitlines():
-                self.add_line_to_log(str(theHostname), str("ssh::responce"), line)
-            countLines=0
-            for line in ssh_stderr.read().splitlines():
-                self.add_line_to_log(str(theHostname), str("ssh::error"), line)
-                countLines+=1
-            if (countLines==0):
-                self.add_line_to_log(str(theHostname), str("ssh::success"), "Success: " + command.encode('utf-8'))
-        except paramiko.SSHException:
-            self.add_line_to_log(str(theHostname), str("ssh::paramiko.SSHException"), "Channel closed.")
-
     def makeConnections(self):
        for item in self.selectedActions:
             if (self.getFilenameFromActionId(item)!=-1):
                 filename = os.path.dirname(os.path.realpath(__file__)) + "/assets/" + self.getFilenameFromActionId(item)
+            else:
+                show_warning_window(self.window1, "Αδυναμία εντοπισμού αρχείου action από το id του")
+                self.logger.error("Αδυναμία εντοπισμού αρχείου action από το id του")
+                return
+
             if (os.path.isfile(filename)):
                 json_data = codecs.open(filename, "r", "utf-8")
                 try:
@@ -484,12 +475,9 @@ class labOrganizr:
                             queue.put(('ssh', hostname, username, password, command))
                     else:
                         print "Passed ssh phase w/o connections!"
-                #queue.join()
             else:
                 print filename, ' does not exist!'
                 return
-
-
 
     def exit_application(self, *args):
         Gtk.main_quit(*args)

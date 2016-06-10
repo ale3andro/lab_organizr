@@ -1,3 +1,4 @@
 assets/settings.json
+log/
 *.pyc
 *~
