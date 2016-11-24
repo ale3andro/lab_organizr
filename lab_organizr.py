@@ -3,7 +3,7 @@
 
 try:
     import json, sys, os, codecs, paramiko, ntpath, socket, time
-    import threading, Queue, datetime, logging
+    import threading, Queue, datetime, logging, re
     #import re
 
     from gi.repository import GObject, GLib
