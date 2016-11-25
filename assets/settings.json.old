@@ -1,0 +1,41 @@
+{
+    "general" :
+                {"online_save_folder" : "/home/ale3andro/Dropbox/files/",
+                  "offline_save_folder" : "/home/ale3andro/offline/files/",
+                  "school_classes" : "Α1,Α2,Β1,Β2,Β3,Γ1,Γ2,Γ3,Δ1,Δ2,Ε1,Ε2,Ε3,ΣΤ1,ΣΤ2,ΣΤ3"
+                },
+    "client_classes" : [
+                {"id":"0", "label" : "Xubuntu Linux GR", "desktop_folder_name" : "Επιφάνεια εργασίας"},
+                {"id":"1", "label" : "Debian Cinnamon EN", "desktop_folder_name" : "Desktop"},
+                {"id":"2", "label" : "Windows XP Greek", "desktop_folder_name" : "Documents and Settings\\IEUser\\Desktop\\"}
+
+          ],
+    "pcs" : [
+                {"id":"pc01", "client_class":"0", "ip":"10.145.45.61", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc02", "client_class":"0", "ip":"10.145.45.62", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc03", "client_class":"0", "ip":"10.145.45.63", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc04", "client_class":"0", "ip":"10.145.45.64", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc05", "client_class":"0", "ip":"10.145.45.65", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc06", "client_class":"0", "ip":"10.145.45.66", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc07", "client_class":"0", "ip":"10.145.45.67", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc08", "client_class":"0", "ip":"10.145.45.68", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc09", "client_class":"0", "ip":"10.145.45.69", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc10", "client_class":"0", "ip":"10.145.45.70", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc11", "client_class":"0", "ip":"10.145.45.81", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc12", "client_class":"0", "ip":"10.145.45.82", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc13", "client_class":"0", "ip":"10.145.45.83", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc14", "client_class":"0", "ip":"10.145.45.84", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"pc17", "client_class":"0", "ip":"10.145.45.87", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
+                {"id":"home", "client_class":"1", "ip":"192.168.1.2", "username":"ale3andro", "password":"sonia", "super_username":"ale3andro", "super_password":"ale3andro"},
+                {"id":"h0me", "client_class":"1", "ip":"192.168.1.92", "username":"ale3andro", "password":"sonia", "super_username":"ale3andro", "super_password":"ale3andro"},
+                {"id":"xp01", "client_class":"2", "ip":"10.145.45.186", "username":"user", "password":"useruser", "super_username":"ale3andro", "super_password":"ale3andro"}
+            ],
+    "actions" :[
+                {"id":"1", "name":"Καθαρισμός Επιφάνειας Εργασίας", "file":"scripts/script_clean_desktop"},
+                {"id":"2", "name":"Αποστολή αρχείου", "file":"scripts/script_send_files"},
+                {"id":"3", "name":"Λήψη αρχείων", "file":"scripts/script_receive_files"},
+                {"id":"4", "name":"Επανεκκίνηση X", "file":"scripts/script_restart_x"},
+                {"id":"5", "name":"Επιστροφή αρχείων", "file":"scripts/script_send_back_files"},
+                {"id":"6", "name":"Τερματισμός εφαρμογής ή διεργασίας", "file":"scripts/script_kill_instances"}
+                ]
+}
