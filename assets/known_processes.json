@@ -8,7 +8,8 @@
     { "app_name" : "Scratch 2.0", "process_name" : "Scratch 2" },
     { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
     { "app_name" : "GCompris", "process_name" : "gcompris" },
-    { "app_name" : "Python PysioGame", "process_name" : "python" }
+    { "app_name" : "Python PysioGame", "process_name" : "python" },
+    { "app_name" : "Klavaro", "process_name" : "klavaro" }
   ]
 
 }
