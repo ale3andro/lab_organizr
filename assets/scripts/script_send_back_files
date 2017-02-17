@@ -1,6 +1,6 @@
 {
     "name" : "Επιστροφή αρχείων",
+    "actionType" : "scp",
     "asRoot": "0",
-    "arguments" : [ {"id" : "0", "type" : "return"} ],
-    "command" : "scp"
+    "arguments" : [ {"num" : "0", "type" : ""} ]
 }

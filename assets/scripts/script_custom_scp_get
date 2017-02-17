@@ -1,6 +1,0 @@
-{
-    "name" : "scp get custom",
-    "asRoot": "0",
-    "arguments" : [],
-    "command" : "cd Επιφάνεια\\ εργασίας/ && find -mindepth 1 -delete"
-}

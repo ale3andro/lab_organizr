@@ -1,6 +1,7 @@
 {
     "name" : "Αποστολή αρχείου",
+    "actionType" : "scp",
     "asRoot": "0",
-    "arguments" : [ {"id" : "0", "type" : "put"} ],
+    "arguments" : [ {"num" : "0", "type" : ""} ],
     "command" : "scp"
 }
