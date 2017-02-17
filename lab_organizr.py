@@ -107,8 +107,8 @@ class labOrganizr:
             self.w1_treeview_select_pcs.set_model(self.w1_treeview_select_pcs_liststore)
             self.w1_treeview_select_pcs_liststore.clear()
             for item in self.settings['pcs']:
-                self.w1_treeview_select_pcs_liststore.append([item['id'], item['ip']])            
-        
+                self.w1_treeview_select_pcs_liststore.append([item['id'], item['ip']])
+
         self.w1_button_move_right = self.builder.get_object("w1_button_move_right")
         self.w1_button_move_left = self.builder.get_object("w1_button_move_left")
         self.w1_button_select_pcs_all = self.builder.get_object("w1_button_select_pcs_all")
@@ -196,10 +196,10 @@ class labOrganizr:
         if (selection[1]!=None):
             item = [selection[0].get_value(selection[1],1), selection[0].get_value(selection[1],0)]
             self.w1_treeview_selected_modules_liststore.append(item)
-        
+
     def on_w1_button_select_pcs_all_clicked(self, *args):
         self.w1_treeview_select_pcs.get_selection().select_all()
-    
+
     def on_w1_button_select_pcs_none_clicked(self, *args):
         self.w1_treeview_select_pcs.get_selection().unselect_all()
 
@@ -405,11 +405,10 @@ class labOrganizr:
                     school_class, extension = self.show_rf_entry_dialog()
                     if school_class==-1:
                         return
-
                 if (actionType == "return"):
                     return_school_class, return_date = self.show_return_files_entry_dialog()
                     if (return_school_class==-1 or return_date ==-1):
-                        return
+                        return                    
 
                 queue = Queue.Queue()
                 self.w5_treeview_liststore.clear()
