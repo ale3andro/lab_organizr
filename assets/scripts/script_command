@@ -1,8 +1,8 @@
 {
     "name" : "custom bash command",
-    "actionType" : "custom/get/put", 
+    "actionType" : "custom",
     "asRoot": "0",
-    "arguments" : [ { "num":"0", "type":"textBox, "prompt":"Όνομα διεργασίας"},
+    "arguments" : [ { "num":"0", "type":"textBox", "prompt":"Όνομα διεργασίας"},
                     { "num":"1", "type":"fileChooser", "prompt":"Διάλεξε αρχείο:"}
                   ],
     "command" : "sudo killall $1 && whois %username"

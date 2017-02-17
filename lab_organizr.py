@@ -374,41 +374,46 @@ class labOrganizr:
                 json_data.close()
 
                 # Διάβασμα ρυθμίσεων του action
-                command = actionSettings["command"]
+                actionName = actionSettings["name"]
+                actionType = actionSettings["actionType"]
                 asRoot = actionSettings["asRoot"]
                 actionArguments = actionSettings["arguments"]
-                actionType = "not defined"
+                command = actionSettings["command"]
 
                 fArgs={}
-                for argument in actionArguments:
-                    if (argument["id"]=="0"):
-                        actionType = argument["type"]
-                    elif (argument["type"]=="textBox"):
-                        fArgs[int(argument['id'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
-                        if fArgs[int(argument['id'])]==-1:
-                            return
-                    elif (argument["type"]=="fileChooser"):
-                        fArgs[int(argument["id"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
-                        if fArgs[int(argument['id'])] == -1:
-                            return
-                    elif (argument["type"] == "directoryChooser"):
-                        fArgs[int(argument["id"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
-                        if fArgs[int(argument['id'])] == -1:
-                            return
+                if (actionType == "custom"):
+                    for argument in actionArguments:
+                        if (argument["type"]=="textBox"):
+                            fArgs[int(argument['num'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
+                            if fArgs[int(argument['num'])]==-1:
+                                return
+                        elif (argument["type"]=="fileChooser"):
+                            fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
+                            if fArgs[int(argument['num'])] == -1:
+                                return
+                        elif (argument["type"] == "directoryChooser"):
+                            fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
+                            if fArgs[int(argument['num'])] == -1:
+                                return
+                for argA in fArgs:
+                    print argA
+                exit()
 
                 if (actionType == "put"):
                     put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή")
                     if (put_scpFile == "-1"):
                         print "action aborted"
                         return
+
                 if (actionType == "get"):
                     school_class, extension = self.show_rf_entry_dialog()
                     if school_class==-1:
                         return
+
                 if (actionType == "return"):
                     return_school_class, return_date = self.show_return_files_entry_dialog()
                     if (return_school_class==-1 or return_date ==-1):
-                        return                    
+                        return
 
                 queue = Queue.Queue()
                 self.w5_treeview_liststore.clear()
