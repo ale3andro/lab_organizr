@@ -395,9 +395,11 @@ class labOrganizr:
                             fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
                             if fArgs[int(argument['num'])] == -1:
                                 return
-                for argA in fArgs:
-                    print argA
-                exit()
+                    # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
+                    for key,value in fArgs.iteritems():
+                        command = command.replace("$" + str(key), value)
+                    print command
+                    #exit()
 
                 if (actionType == "put"):
                     put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή")
@@ -432,7 +434,20 @@ class labOrganizr:
                         password = self.selectedPcs[item]['password']
                     execute = True
                     if (execute):
-                        if (actionType == "get"):
+                        if (actionType == "custom"):
+                            sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
+                            sshThread.daemon = True
+                            sshThread.start()
+                            # TODO πάρε από εδώ τον έλεγχο και βάλτο μέσα στο main κατασκευή command
+                            if (command.count('$')!=0):
+                                if (len(fArgs) != command.count('$')):
+                                    print "Error. Mismatch in number of argument"
+                                    add_line_to_log(self, hostname, "ssh", "Λάθος αριθμός ορισμάτων")
+                                    return
+                                for i in range(1, len(fArgs) + 1):
+                                    command = command.replace("$" + str(i), fArgs[i])
+                            queue.put(('custom', hostname, username, password, command))
+                        elif (actionType == "get"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()

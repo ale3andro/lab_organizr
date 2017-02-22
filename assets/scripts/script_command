@@ -5,5 +5,5 @@
     "arguments" : [ { "num":"0", "type":"textBox", "prompt":"Όνομα διεργασίας"},
                     { "num":"1", "type":"fileChooser", "prompt":"Διάλεξε αρχείο:"}
                   ],
-    "command" : "sudo killall $1 && whois %username"
+    "command" : "rm google*.deb && ls *.deb"
 }
