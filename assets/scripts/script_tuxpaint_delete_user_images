@@ -1,0 +1,7 @@
+{
+    "name" : "Tuxpaint - Διαγραφή ζωγραφιών μαθητών",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [ ],
+    "command" : "rm /home/user/.tuxpaint/saved/*.png"
+}

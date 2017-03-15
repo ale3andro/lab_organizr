@@ -1,0 +1,7 @@
+{
+    "name" : "Tuxpaint - Λήψη ζωγραφιών",
+    "actionType" : "get",
+    "asRoot": "0",
+    "arguments" : [ { "num":"0", "type":"originFolder", "directory":"/home/user/.tuxpaint/saved/"}  ],
+    "command" : ""
+}

@@ -379,27 +379,29 @@ class labOrganizr:
                 asRoot = actionSettings["asRoot"]
                 actionArguments = actionSettings["arguments"]
                 command = actionSettings["command"]
+                originFolder = ""
 
                 fArgs={}
                 if (actionType == "custom"):
-                    for argument in actionArguments:
-                        if (argument["type"]=="textBox"):
-                            fArgs[int(argument['num'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
-                            if fArgs[int(argument['num'])]==-1:
-                                return
-                        elif (argument["type"]=="fileChooser"):
-                            fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
-                            if fArgs[int(argument['num'])] == -1:
-                                return
-                        elif (argument["type"] == "directoryChooser"):
-                            fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
-                            if fArgs[int(argument['num'])] == -1:
-                                return
-                    # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
-                    for key,value in fArgs.iteritems():
-                        command = command.replace("$" + str(key), value)
-                    print command
-                    #exit()
+                    if (len(actionArguments)>0):
+                        for argument in actionArguments:
+                            if (argument["type"]=="textBox"):
+                                fArgs[int(argument['num'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
+                                if fArgs[int(argument['num'])]==-1:
+                                    return
+                                elif (argument["type"]=="fileChooser"):
+                                    fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
+                                    if fArgs[int(argument['num'])] == -1:
+                                        return
+                                elif (argument["type"] == "directoryChooser"):
+                                    fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
+                                    if fArgs[int(argument['num'])] == -1:
+                                        return
+                                else:
+                                    exit("Δεν υποστηρίζεται το όρισμα")
+                        # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
+                        for key,value in fArgs.iteritems():
+                            command = command.replace("$" + str(key), value)
 
                 if (actionType == "put"):
                     put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή")
@@ -411,6 +413,10 @@ class labOrganizr:
                     school_class, extension = self.show_rf_entry_dialog()
                     if school_class==-1:
                         return
+                    if (len(actionArguments)>0):
+                        for argument in actionArguments:
+                            if (argument["type"]=="originFolder"):
+                                originFolder = argument["directory"]
 
                 if (actionType == "return"):
                     return_school_class, return_date = self.show_return_files_entry_dialog()
@@ -451,7 +457,10 @@ class labOrganizr:
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
-                            origin = "/home/" + username + "/" + desktopFolderName + "/"
+                            if (originFolder == ""):
+                                origin = "/home/" + username + "/" + desktopFolderName + "/"
+                            else:
+                                origin = originFolder
                             origin.encode("utf-8")
                             if self.onlineStorage:
                                 destination = self.settings['general']['online_save_folder'] + school_class + "/" + str(self.get_date()) + "/" + friendlyname + "/"
