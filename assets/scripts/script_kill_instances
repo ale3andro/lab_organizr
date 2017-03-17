@@ -2,6 +2,6 @@
     "name" : "Τερματισμός διεργασίας",
     "actionType" : "custom",
     "asRoot": "1",
-    "arguments" : [{"num" : "0", "type" : "textBox", "prompt" : "Όνομα διεργασίας;"} ],
-    "command" : "sudo killall $1"
+    "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Όνομα διεργασίας;"} ],
+    "command" : "sudo killall $0"
 }

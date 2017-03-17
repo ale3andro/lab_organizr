@@ -392,19 +392,20 @@ class labOrganizr:
                                 fArgs[int(argument['num'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
                                 if fArgs[int(argument['num'])]==-1:
                                     return
-                                elif (argument["type"]=="fileChooser"):
-                                    fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
-                                    if fArgs[int(argument['num'])] == -1:
-                                        return
-                                elif (argument["type"] == "directoryChooser"):
-                                    fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
-                                    if fArgs[int(argument['num'])] == -1:
-                                        return
-                                else:
-                                    exit("Δεν υποστηρίζεται το όρισμα")
+                            elif (argument["type"]=="fileChooser"):
+                                fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο")
+                                if fArgs[int(argument['num'])] == -1:
+                                    return
+                            elif (argument["type"] == "directoryChooser"):
+                                fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
+                                if fArgs[int(argument['num'])] == -1:
+                                    return
+                            else:
+                                exit("Δεν υποστηρίζεται το όρισμα")
                         # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
                         for key,value in fArgs.iteritems():
                             command = command.replace("$" + str(key), value)
+                        
 
                 if (actionType == "put"):
                     put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή")
