@@ -264,9 +264,12 @@ class labOrganizr:
         client.connect(server, port, user, password)
         return client
 
-    def show_rf_entry_dialog(self):
+    def show_rf_entry_dialog(self, defaultExtension="*"):
         self.w3_radiobutton_online_storage.set_active(True)
-        self.w3_entry_extension.set_text("*")
+        if (defaultExtension=="*"):
+            self.w3_entry_extension.set_text("*")
+        else:
+            self.w3_entry_extension.set_text(defaultExtension)
         if self.window3.run() == 1:
             self.window3.hide()
             index = self.w3_combo.get_active()
@@ -410,7 +413,12 @@ class labOrganizr:
                         return
 
                 if (actionType == "get"):
-                    school_class, extension = self.show_rf_entry_dialog()
+                    defaultExtension="*"
+                    if (len(actionArguments)>0):
+                        for argument in actionArguments:
+                            if (argument["type"]=="defaultExtension"):
+                                defaultExtension=argument["extension"]
+                    school_class, extension = self.show_rf_entry_dialog(defaultExtension)
                     if school_class==-1:
                         return
                     if (len(actionArguments)>0):
