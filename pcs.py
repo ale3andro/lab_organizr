@@ -22,9 +22,11 @@ def show_directory_chooser(parent, message):
     #    return -1
 
 
-def show_file_chooser(parent, message):
+def show_file_chooser(parent, message, defaultFolder=""):
     dialog = Gtk.FileChooserDialog(message, parent, Gtk.FileChooserAction.OPEN,
                                    ("Άκυρο", Gtk.ResponseType.CANCEL, "Επιλογή", Gtk.ResponseType.OK))
+    if (defaultFolder!=""):
+        dialog.set_current_folder(defaultFolder)
     response = dialog.run()
     filename = "-1"
     if response == Gtk.ResponseType.OK:
@@ -36,8 +38,3 @@ def show_file_chooser(parent, message):
     #elif response == Gtk.ResponseType.CANCEL:
     #    dialog.destroy()
     #    return -1
-
-
-
-
-
