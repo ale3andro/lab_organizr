@@ -19,6 +19,8 @@ class labOrganizr:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
+        if not os.path.exists("log"):
+            os.makedirs("log")
         handler = logging.FileHandler('log/app.log')
         handler.setLevel(logging.INFO)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
