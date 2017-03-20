@@ -385,6 +385,7 @@ class labOrganizr:
                 actionArguments = actionSettings["arguments"]
                 command = actionSettings["command"]
                 originFolder = ""
+                listOnly=False
 
                 fArgs={}
                 if (actionType == "custom"):
@@ -421,6 +422,8 @@ class labOrganizr:
                         for argument in actionArguments:
                             if (argument["type"]=="defaultExtension"):
                                 defaultExtension=argument["extension"]
+                            if (argument["type"]=="listOnly"):
+                                listOnly=True
                     school_class, extension = self.show_rf_entry_dialog(defaultExtension)
                     if school_class==-1:
                         return
@@ -478,7 +481,7 @@ class labOrganizr:
                             else:
                                 destination = self.settings['general']['offline_save_folder'] + school_class + "/" + str(self.get_date()) + "/" + friendlyname + "/"
                             destination.encode('utf-8')
-                            queue.put(('get', hostname, username, password, origin, destination, extension))
+                            queue.put(('get', hostname, username, password, origin, destination, extension, listOnly))
                         elif (actionType == "put"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True

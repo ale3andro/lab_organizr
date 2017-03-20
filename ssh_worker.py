@@ -101,6 +101,7 @@ class sshWorker(threading.Thread):
                 origin = details[4]
                 destination = details[5]
                 extension = details[6]
+                displayOnly = details[7]
                 try:
                     t = paramiko.Transport((hostname, 22))
                     t.set_keepalive(5)
@@ -111,13 +112,22 @@ class sshWorker(threading.Thread):
                         self.liststore_log.append([self.get_time(), hostname, "get", "Δεν υπάρχουν αρχεία στον φάκελο"])
                         self.modify_line_to_action_progress_log(hostname, "Δεν υπάρχουν αρχεία στον φάκελο")
                     else:
+                        allUserFiles=""
                         for file in files2Get:
-                            print file + ":"
-                            if not os.path.exists(destination):
-                                os.makedirs(destination)
-                            sftp.get(origin + file, destination + file)
-                        self.liststore_log.append([self.get_time(), hostname, "get", "Επιτυχής λήψη αρχείων."])
-                        self.modify_line_to_action_progress_log(hostname, "Ok")
+                            allUserFiles += file + ", "
+                            if (~displayOnly):
+                                if not os.path.exists(destination):
+                                    os.makedirs(destination)
+                                sftp.get(origin + file, destination + file)
+                                self.liststore_log.append([self.get_time(), hostname, "get", "Επιτυχής λήψη αρχείου: " + str(file)])
+                                self.modify_line_to_action_progress_log(hostname, "Ok")
+                        allUserFiles = allUserFiles[:-2]
+                        if (displayOnly):
+                            self.liststore_log.append([self.get_time(), hostname, "get", "Αρχεία: " + str(allUserFiles)])
+                            self.modify_line_to_action_progress_log(hostname, allUserFiles)
+                        else:
+                            self.liststore_log.append([self.get_time(), hostname, "get", "Αποθηκεύτηκαν: " + str(allUserFiles)])
+                            self.modify_line_to_action_progress_log(hostname, "Αποθηκεύτηκαν: " + str(allUserFiles))
                 except paramiko.SSHException:
                     self.liststore_log.append([self.get_time(), hostname, "get", "Αδυναμία σύνδεσης ssh_get"])
                     self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
