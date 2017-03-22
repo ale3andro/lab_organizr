@@ -2,6 +2,6 @@
     "name" : "Επιστροφή αρχείων",
     "actionType" : "return",
     "asRoot": "0",
-    "arguments" : [ {"num" : "0", "type" : ""} ],
+    "arguments" : [ {"num" : "0", "type" : "none"} ],
     "command" : ""
 }

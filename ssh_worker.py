@@ -115,7 +115,7 @@ class sshWorker(threading.Thread):
                         allUserFiles=""
                         for file in files2Get:
                             allUserFiles += file + ", "
-                            if (~displayOnly):
+                            if (not displayOnly):
                                 if not os.path.exists(destination):
                                     os.makedirs(destination)
                                 sftp.get(origin + file, destination + file)

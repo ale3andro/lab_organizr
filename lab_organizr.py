@@ -424,7 +424,11 @@ class labOrganizr:
                                 defaultExtension=argument["extension"]
                             if (argument["type"]=="listOnly"):
                                 listOnly=True
-                    school_class, extension = self.show_rf_entry_dialog(defaultExtension)
+                    if (listOnly):
+                        school_class="foo"
+                        extension="*"
+                    else:
+                        school_class, extension = self.show_rf_entry_dialog(defaultExtension)
                     if school_class==-1:
                         return
                     if (len(actionArguments)>0):
