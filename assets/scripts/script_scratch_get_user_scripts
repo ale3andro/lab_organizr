@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Scratch - Λήψη σεναρίων",
     "actionType" : "get",
     "asRoot": "0",

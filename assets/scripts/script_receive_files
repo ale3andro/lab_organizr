@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Λήψη αρχείων",
     "actionType" : "get",
     "asRoot": "0",

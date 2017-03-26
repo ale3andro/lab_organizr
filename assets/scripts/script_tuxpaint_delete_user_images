@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Tuxpaint - Διαγραφή ζωγραφιών μαθητών",
     "actionType" : "custom",
     "asRoot": "0",

@@ -3,7 +3,7 @@
 
 try:
     import json, sys, os, codecs, paramiko, ntpath, socket, time
-    import threading, Queue, datetime, logging, re
+    import threading, Queue, datetime, logging, re, glob
     #import re
 
     from gi.repository import GObject, GLib
@@ -82,6 +82,20 @@ class labOrganizr:
         self.w1_treeview_available_modules = self.builder.get_object("w1_treeview_available_modules")
         self.w1_treeview_available_modules_liststore = Gtk.ListStore(int, str)
 
+        actionFiles = glob.glob(os.getcwd()+"/assets/scripts/script_*")
+        self.allActions = []
+        counter=0
+        for i in actionFiles:
+            actionSettings = json.load(open(i))
+            if 'enabled' in actionSettings:
+                self.allActions.append(dict(id=counter, name=actionSettings['name'], file=i))
+                self.add_line_to_log("init", "...", "Το action " + i + " ενεργοποιήθηκε")
+                counter+=1
+            else:
+                self.logger.error("Το action " + i + " δεν ενεργοποιήθηκε")
+                self.add_line_to_log("init", "...", "Το action " + i + " δεν ενεργοποιήθηκε")
+        print self.allActions
+
         # Populate the actions
         for i in range(2):
             cell = Gtk.CellRendererText()
@@ -89,7 +103,8 @@ class labOrganizr:
             self.w1_treeview_available_modules.append_column(col)
         self.w1_treeview_available_modules.set_model(self.w1_treeview_available_modules_liststore)
         self.w1_treeview_available_modules_liststore.clear()
-        for item in self.settings['actions']:
+        #for item in self.settings['actions']:
+        for item in self.allActions:
             self.w1_treeview_available_modules_liststore.append([int(item['id']), item['name']])
             self.actions.append(dict(id=item['id'], name=item['name'], file=item['file']))
 
@@ -255,7 +270,7 @@ class labOrganizr:
 
     def getFilenameFromActionId(self, actionId):
         for item in self.actions:
-            if item['id']==str(actionId):
+            if item['id']==actionId:
                 return item['file']
         return -1
 
@@ -364,6 +379,7 @@ class labOrganizr:
        for item in self.selectedActions:
             if (self.getFilenameFromActionId(item)!=-1):
                 filename = os.path.dirname(os.path.realpath(__file__)) + "/assets/" + self.getFilenameFromActionId(item)
+                filename = self.getFilenameFromActionId(item)
             else:
                 show_warning_window(self.window1, "Αδυναμία εντοπισμού αρχείου action από το id του")
                 self.logger.error("Αδυναμία εντοπισμού αρχείου action από το id του")
@@ -385,7 +401,6 @@ class labOrganizr:
                 actionArguments = actionSettings["arguments"]
                 command = actionSettings["command"]
                 originFolder = ""
-                listOnly=False
 
                 fArgs={}
                 if (actionType == "custom"):
@@ -422,13 +437,7 @@ class labOrganizr:
                         for argument in actionArguments:
                             if (argument["type"]=="defaultExtension"):
                                 defaultExtension=argument["extension"]
-                            if (argument["type"]=="listOnly"):
-                                listOnly=True
-                    if (listOnly):
-                        school_class="foo"
-                        extension="*"
-                    else:
-                        school_class, extension = self.show_rf_entry_dialog(defaultExtension)
+                    school_class, extension = self.show_rf_entry_dialog(defaultExtension)
                     if school_class==-1:
                         return
                     if (len(actionArguments)>0):
@@ -485,7 +494,7 @@ class labOrganizr:
                             else:
                                 destination = self.settings['general']['offline_save_folder'] + school_class + "/" + str(self.get_date()) + "/" + friendlyname + "/"
                             destination.encode('utf-8')
-                            queue.put(('get', hostname, username, password, origin, destination, extension, listOnly))
+                            queue.put(('get', hostname, username, password, origin, destination, extension))
                         elif (actionType == "put"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True

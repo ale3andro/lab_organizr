@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Επανεκκίνηση Γραφικού Περιβάλλοντος",
     "actionType" : "custom",
     "asRoot": "1",

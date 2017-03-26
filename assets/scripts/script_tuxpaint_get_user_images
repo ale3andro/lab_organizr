@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Tuxpaint - Λήψη ζωγραφιών",
     "actionType" : "get",
     "asRoot": "0",

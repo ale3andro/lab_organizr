@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Καθαρισμός επιφάνειας εργασίας",
     "actionType" : "custom",
     "asRoot": "0",

@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Αποστολή αρχείου",
     "actionType" : "put",
     "asRoot": "0",

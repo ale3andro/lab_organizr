@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Scratch - Διαγραφή scripts μαθητών",
     "actionType" : "custom",
     "asRoot": "0",

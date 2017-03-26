@@ -1,7 +1,8 @@
 {
+    "enabled" : "True",
     "name" : "Επιστροφή αρχείων",
     "actionType" : "return",
     "asRoot": "0",
-    "arguments" : [ {"num" : "0", "type" : "none"} ],
+    "arguments" : [ {"num" : "0", "type" : ""} ],
     "command" : ""
 }

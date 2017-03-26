@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "custom bash command",
     "actionType" : "custom",
     "asRoot": "0",
