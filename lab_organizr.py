@@ -82,7 +82,7 @@ class labOrganizr:
         self.w1_treeview_available_modules = self.builder.get_object("w1_treeview_available_modules")
         self.w1_treeview_available_modules_liststore = Gtk.ListStore(int, str)
 
-        actionFiles = glob.glob(os.getcwd()+"/assets/scripts/script_*")
+        actionFiles = sorted(glob.glob(os.getcwd()+"/assets/scripts/script_*"))
         self.allActions = []
         counter=0
         for i in actionFiles:
@@ -104,7 +104,6 @@ class labOrganizr:
             self.w1_treeview_available_modules.append_column(col)
         self.w1_treeview_available_modules.set_model(self.w1_treeview_available_modules_liststore)
         self.w1_treeview_available_modules_liststore.clear()
-        #for item in self.settings['actions']:
         for item in self.allActions:
             self.w1_treeview_available_modules_liststore.append([int(item['id']), item['name']])
             self.actions.append(dict(id=item['id'], name=item['name'], file=item['file']))

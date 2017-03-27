@@ -11,31 +11,20 @@
 
           ],
     "pcs" : [
-                {"id":"pc01", "client_class":"0", "ip":"10.145.45.61", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc02", "client_class":"0", "ip":"10.145.45.62", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc03", "client_class":"0", "ip":"10.145.45.63", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc04", "client_class":"0", "ip":"10.145.45.64", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc05", "client_class":"0", "ip":"10.145.45.65", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc06", "client_class":"0", "ip":"10.145.45.66", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc07", "client_class":"0", "ip":"10.145.45.67", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc08", "client_class":"0", "ip":"10.145.45.68", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc09", "client_class":"0", "ip":"10.145.45.69", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc10", "client_class":"0", "ip":"10.145.45.70", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc11", "client_class":"0", "ip":"10.145.45.81", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc12", "client_class":"0", "ip":"10.145.45.82", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc13", "client_class":"0", "ip":"10.145.45.83", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc14", "client_class":"0", "ip":"10.145.45.84", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"pc17", "client_class":"0", "ip":"10.145.45.87", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"1dimgiann"},
-                {"id":"home", "client_class":"1", "ip":"192.168.1.2", "username":"ale3andro", "password":"sonia", "super_username":"ale3andro", "super_password":"ale3andro"},
-                {"id":"h0me", "client_class":"1", "ip":"192.168.1.92", "username":"ale3andro", "password":"sonia", "super_username":"ale3andro", "super_password":"ale3andro"},
-                {"id":"xp01", "client_class":"2", "ip":"10.145.45.186", "username":"user", "password":"useruser", "super_username":"ale3andro", "super_password":"ale3andro"}
-            ],
-    "actions" :[
-                {"id":"1", "name":"Καθαρισμός Επιφάνειας Εργασίας", "file":"scripts/script_clean_desktop"},
-                {"id":"2", "name":"Αποστολή αρχείου", "file":"scripts/script_send_files"},
-                {"id":"3", "name":"Λήψη αρχείων", "file":"scripts/script_receive_files"},
-                {"id":"4", "name":"Επανεκκίνηση X", "file":"scripts/script_restart_x"},
-                {"id":"5", "name":"Επιστροφή αρχείων", "file":"scripts/script_send_back_files"},
-                {"id":"6", "name":"Τερματισμός εφαρμογής ή διεργασίας", "file":"scripts/script_kill_instances"}
-                ]
+                {"id":"pc01", "client_class":"0", "ip":"10.145.45.61", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc02", "client_class":"0", "ip":"10.145.45.62", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc03", "client_class":"0", "ip":"10.145.45.63", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc04", "client_class":"0", "ip":"10.145.45.64", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc05", "client_class":"0", "ip":"10.145.45.65", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc06", "client_class":"0", "ip":"10.145.45.66", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc07", "client_class":"0", "ip":"10.145.45.67", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc08", "client_class":"0", "ip":"10.145.45.68", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc09", "client_class":"0", "ip":"10.145.45.69", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc10", "client_class":"0", "ip":"10.145.45.70", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc11", "client_class":"0", "ip":"10.145.45.81", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc12", "client_class":"0", "ip":"10.145.45.82", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc13", "client_class":"0", "ip":"10.145.45.83", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc14", "client_class":"0", "ip":"10.145.45.84", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"},
+                {"id":"pc17", "client_class":"0", "ip":"10.145.45.87", "username":"user", "password":"user1234", "super_username":"labroot", "super_password":"super_password"}
+            ]
 }
