@@ -1,0 +1,8 @@
+{
+    "enabled": "True",
+    "name" : "Άνοιγμα εφαρμογής",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [ {"num" : "0", "type" : "textBox"} ],
+    "command" : "export DISPLAY=:0 && $0 &"
+}

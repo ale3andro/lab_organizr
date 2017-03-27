@@ -95,7 +95,6 @@ class labOrganizr:
             else:
                 self.logger.error("Το action " + i + " δεν ενεργοποιήθηκε")
                 self.add_line_to_log("init", "...", "Το action " + i + " δεν ενεργοποιήθηκε")
-        print self.allActions
 
         # Populate the actions
         for i in range(2):
@@ -424,8 +423,7 @@ class labOrganizr:
                         # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
                         for key,value in fArgs.iteritems():
                             command = command.replace("$" + str(key), value)
-
-
+                    
                 if (actionType == "put"):
                     put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή", self.settings['general']['online_save_folder'])
                     if (put_scpFile == "-1"):
