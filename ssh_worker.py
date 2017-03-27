@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import threading, Queue, paramiko, socket, os, time
+import threading, Queue, paramiko, socket, os, time, ntpath
 
 class sshWorker(threading.Thread):
     def __init__(self, queue, name, liststore_log, liststore_action_progress):
@@ -20,6 +20,11 @@ class sshWorker(threading.Thread):
         for item in self.liststore_action_progress:
             if item[0] == theFriendlyName:
                 item[1] = theMsg
+
+    def get_text_from_action_progress_log(self, theFriendlyName):
+        for item in self.liststore_action_progress:
+            if item[0] == theFriendlyName:
+                return item[1]
 
     def list_remote_files(self, theHostname, theUsername, thePassword, dirName, extension):
         ssh = paramiko.SSHClient()
@@ -83,15 +88,21 @@ class sshWorker(threading.Thread):
 
             if (details[0]=="put"):
                 destination = details[4]
-                put_scpFile = details[5]
+                put_scpFiles = details[5]
                 try:
-                    t = paramiko.Transport((hostname, 22))
-                    t.set_keepalive(5)
-                    t.connect(username=username, password=password)
-                    sftp = paramiko.SFTPClient.from_transport(t)
-                    sftp.put(put_scpFile, destination)
-                    self.liststore_log.append([self.get_time(), hostname, "put", "Επιτυχής αποστολή αρχείων."])
-                    self.modify_line_to_action_progress_log(hostname, "Ok")
+                    counter=0
+                    for put_scpFile in put_scpFiles:
+                        t = paramiko.Transport((hostname, 22))
+                        t.set_keepalive(5)
+                        t.connect(username=username, password=password)
+                        sftp = paramiko.SFTPClient.from_transport(t)
+                        sftp.put(put_scpFile, destination + ntpath.basename((put_scpFile)))
+                        self.liststore_log.append([self.get_time(), hostname, "put", "Επιτυχής αποστολή αρχείου." + ntpath.basename((put_scpFile))])
+                        if (counter==0):
+                            self.modify_line_to_action_progress_log(hostname, "Επιτυχής αποστολή αρχείων: " + ntpath.basename((put_scpFile)))
+                        else:
+                            self.modify_line_to_action_progress_log(hostname, self.get_text_from_action_progress_log(hostname) + ", " + ntpath.basename((put_scpFile)))
+                        counter+=1
                 except paramiko.SSHException as e:
                     self.liststore_log.append([self.get_time(), hostname, "put", "Αδυναμία σύνδεσης ssh_put"])
                     self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")

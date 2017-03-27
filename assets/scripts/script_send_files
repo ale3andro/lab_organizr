@@ -1,6 +1,6 @@
 {
     "enabled" : "True",
-    "name" : "Αποστολή αρχείου",
+    "name" : "Αποστολή αρχείου/αρχείων",
     "actionType" : "put",
     "asRoot": "0",
     "arguments" : [ {"num" : "0", "type" : ""} ],

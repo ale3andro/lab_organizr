@@ -59,6 +59,10 @@ class labOrganizr:
             col = Gtk.TreeViewColumn(self.treeview_log_labels[i], cell, text=i)
             self.treeview_log.append_column(col)
         self.add_line_to_log("...", "...", "Εκκίνηση χωρίς σφάλματα")
+        self.version = os.popen("git log -1").read()
+        for line in self.version.split('\n'):
+            if (line!=""):
+                self.add_line_to_log("git", "log", line)
 
         self.settings = []
         self.actions = []
@@ -423,10 +427,13 @@ class labOrganizr:
                         # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
                         for key,value in fArgs.iteritems():
                             command = command.replace("$" + str(key), value)
-                    
+
                 if (actionType == "put"):
-                    put_scpFile = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή", self.settings['general']['online_save_folder'])
-                    if (put_scpFile == "-1"):
+                    #put_scpFolder = show_directory_chooser(self.window1, "Διάλεξε φάκελο για αποστολή", self.settings['general']['online_save_folder'])
+                    #print put_scpFolder
+                    #exit(1)
+                    put_scpFiles = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή", self.settings['general']['online_save_folder'])
+                    if (put_scpFiles == "-1"):
                         print "action aborted"
                         return
 
@@ -503,10 +510,9 @@ class labOrganizr:
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
-                            destination = "/home/" + username + "/" + desktopFolderName + "/" + ntpath.basename((put_scpFile))
+                            destination = "/home/" + username + "/" + desktopFolderName + "/"
                             destination.encode("utf-8")
-                            queue.put(('put', hostname, username, password, destination, put_scpFile))
-                            print hostname, username, password, destination, put_scpFile
+                            queue.put(('put', hostname, username, password, destination, put_scpFiles))
                         elif (actionType == "return"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True

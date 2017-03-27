@@ -8,9 +8,11 @@ def show_warning_window(parent, message):
             dialog.destroy()
     return
 
-def show_directory_chooser(parent, message):
+def show_directory_chooser(parent, message, defaultFolder=""):
     dialog = Gtk.FileChooserDialog(message, parent, Gtk.FileChooserAction.SELECT_FOLDER,
                                    ("Άκυρο", Gtk.ResponseType.CANCEL, "Επιλογή", Gtk.ResponseType.OK))
+    if (defaultFolder!=""):
+        dialog.set_current_folder(defaultFolder)
     response = dialog.run()
     dirname = "-1"
     if response == Gtk.ResponseType.OK:
@@ -27,13 +29,15 @@ def show_file_chooser(parent, message, defaultFolder=""):
                                    ("Άκυρο", Gtk.ResponseType.CANCEL, "Επιλογή", Gtk.ResponseType.OK))
     if (defaultFolder!=""):
         dialog.set_current_folder(defaultFolder)
+
+    dialog.set_select_multiple(True)
     response = dialog.run()
-    filename = "-1"
+    filenames = "-1"
     if response == Gtk.ResponseType.OK:
-        filename = dialog.get_filename()
+        filenames = dialog.get_filenames()
 
     dialog.destroy()
-    return filename
+    return filenames
 
     #elif response == Gtk.ResponseType.CANCEL:
     #    dialog.destroy()
