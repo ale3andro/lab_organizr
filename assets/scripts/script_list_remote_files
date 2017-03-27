@@ -1,4 +1,5 @@
 {
+    "enabled" : "True",
     "name" : "Εμφάνιση αρχείων χρηστών",
     "actionType" : "get",
     "asRoot": "0",

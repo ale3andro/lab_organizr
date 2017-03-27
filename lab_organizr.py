@@ -88,9 +88,10 @@ class labOrganizr:
         for i in actionFiles:
             actionSettings = json.load(open(i))
             if 'enabled' in actionSettings:
-                self.allActions.append(dict(id=counter, name=actionSettings['name'], file=i))
-                self.add_line_to_log("init", "...", "Το action " + i + " ενεργοποιήθηκε")
-                counter+=1
+                if (actionSettings['enabled']=="True"):
+                    self.allActions.append(dict(id=counter, name=actionSettings['name'], file=i))
+                    self.add_line_to_log("init", "...", "Το action " + i + " ενεργοποιήθηκε")
+                    counter+=1
             else:
                 self.logger.error("Το action " + i + " δεν ενεργοποιήθηκε")
                 self.add_line_to_log("init", "...", "Το action " + i + " δεν ενεργοποιήθηκε")
@@ -401,6 +402,7 @@ class labOrganizr:
                 actionArguments = actionSettings["arguments"]
                 command = actionSettings["command"]
                 originFolder = ""
+                displayOnly = False
 
                 fArgs={}
                 if (actionType == "custom"):
@@ -437,14 +439,19 @@ class labOrganizr:
                         for argument in actionArguments:
                             if (argument["type"]=="defaultExtension"):
                                 defaultExtension=argument["extension"]
-                    school_class, extension = self.show_rf_entry_dialog(defaultExtension)
-                    if school_class==-1:
-                        return
-                    if (len(actionArguments)>0):
-                        for argument in actionArguments:
-                            if (argument["type"]=="originFolder"):
-                                originFolder = argument["directory"]
-
+                            if (argument["type"]=="listOnly"):
+                                displayOnly = True
+                    if (not displayOnly):
+                        school_class, extension = self.show_rf_entry_dialog(defaultExtension)
+                        if school_class==-1:
+                            return
+                        if (len(actionArguments)>0):
+                            for argument in actionArguments:
+                                if (argument["type"]=="originFolder"):
+                                    originFolder = argument["directory"]
+                    else:
+                        school_class="-"
+                        extension="*"
                 if (actionType == "return"):
                     return_school_class, return_date = self.show_return_files_entry_dialog()
                     if (return_school_class==-1 or return_date ==-1):
@@ -494,7 +501,7 @@ class labOrganizr:
                             else:
                                 destination = self.settings['general']['offline_save_folder'] + school_class + "/" + str(self.get_date()) + "/" + friendlyname + "/"
                             destination.encode('utf-8')
-                            queue.put(('get', hostname, username, password, origin, destination, extension))
+                            queue.put(('get', hostname, username, password, origin, destination, extension, displayOnly))
                         elif (actionType == "put"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
