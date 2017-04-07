@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Άνοιγμα παραθύρου σε συγκεκριμένο μέγεθος & θέση",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "export DISPLAY=:0 && ./setwindow xfce4-terminal 100 100 25 25"
+}
