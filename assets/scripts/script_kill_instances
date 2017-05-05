@@ -4,5 +4,5 @@
     "actionType" : "custom",
     "asRoot": "1",
     "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Όνομα διεργασίας;"} ],
-    "command" : "sudo killall $0"
+    "command" : "sudo killall -9 $0"
 }
