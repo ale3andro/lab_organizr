@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Τερματισμός υπολογιστή",
+    "actionType" : "custom",
+    "asRoot": "1",
+    "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Σε πόσα λεπτά;"} ],
+    "command" : "echo \"sudo halt -p\" | at now + $0 minutes"
+}

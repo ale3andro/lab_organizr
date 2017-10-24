@@ -48,6 +48,7 @@ class labOrganizr:
         self.window3 = self.builder.get_object("textEntryDialog_rf")
         self.window4 = self.builder.get_object("textEntryDialog_receivefiles")
         self.window5 = self.builder.get_object("window_actionProgress")
+        self.window6 = self.builder.get_object("simpleTextBox_stb")
         self.window1.connect('destroy', lambda w: Gtk.main_quit())
 
         # Message Log Creation
@@ -194,6 +195,9 @@ class labOrganizr:
             col = Gtk.TreeViewColumn(self.w5_treeview_columns[i], cell, text=i)
             self.w5_treeview.append_column(col)
         self.w5_treeview_liststore.clear()
+        # Window 6
+        self.w6_label = self.builder.get_object("stb_label")
+        self.w6_text = self.builder.get_object("stb_text")
 
         # Μεταβλητές που θα χρειαστούν για την ssh σύνδεση
         self.selectedPcs = {}
@@ -368,6 +372,16 @@ class labOrganizr:
         self.window2.hide()
         return -1
 
+    def show_simple_text_entry_dialog(self, msg="Τιμή;"):
+        self.w6_label.set_text(msg)
+        if self.window6.run() == 1:
+            self.window6.hide()
+            if (self.w6_text.get_text()!=""):
+                return self.w6_text.get_text()
+            else:
+                return -1
+        self.window6.hide()
+
     def add_line_to_log(self, theHostname, theType, theMsg):
         theTime = time.strftime('%H:%M:%S', time.localtime(time.time()))
         self.liststore_log.append([str(theTime), theHostname, theType, theMsg])
@@ -410,8 +424,12 @@ class labOrganizr:
                 if (actionType == "custom"):
                     if (len(actionArguments)>0):
                         for argument in actionArguments:
-                            if (argument["type"]=="textBox"):
-                                fArgs[int(argument['num'])] = self.show_text_entry_dialog("Όνομα εφαρμογής")
+                            if (argument["type"]=="instanceBox"):
+                                fArgs[int(argument['num'])] = self.show_text_entry_dialog(argument['prompt'])
+                                if fArgs[int(argument['num'])]==-1:
+                                    return
+                            elif (argument["type"]=="textBox"):
+                                fArgs[int(argument['num'])] = self.show_simple_text_entry_dialog(argument['prompt'])
                                 if fArgs[int(argument['num'])]==-1:
                                     return
                             elif (argument["type"]=="fileChooser"):

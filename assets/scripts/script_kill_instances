@@ -3,6 +3,6 @@
     "name" : "Τερματισμός διεργασίας",
     "actionType" : "custom",
     "asRoot": "1",
-    "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Όνομα διεργασίας;"} ],
+    "arguments" : [{"num" : "0", "type":"instanceBox", "prompt": "Όνομα διεργασίας;"} ],
     "command" : "sudo killall -9 $0"
 }
