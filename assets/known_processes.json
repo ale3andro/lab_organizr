@@ -9,6 +9,7 @@
     { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
     { "app_name" : "GCompris", "process_name" : "gcompris" },
     { "app_name" : "Python PysioGame", "process_name" : "python" },
+    { "app_name" : "EduActiv8", "process_name" : "eduActiv8" },
     { "app_name" : "Klavaro", "process_name" : "klavaro" }
   ]
 
