@@ -4,5 +4,5 @@
     "actionType" : "custom",
     "asRoot": "0",
     "arguments" : [ {"num" : "0", "type" : "textBox"} ],
-    "command" : "export DISPLAY=:0 && $0 &"
+    "command" : "export DISPLAY=:0 && %0 &"
 }
