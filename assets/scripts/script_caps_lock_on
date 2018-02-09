@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Caps Lock on",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "export DISPLAY=:0 && var=\"$(xset q | grep Caps | awk '{print $4}')\" && if [ \"$var\" == \"off\" ]; then xdotool key Caps_Lock; fi"
+}

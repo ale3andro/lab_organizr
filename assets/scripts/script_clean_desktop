@@ -1,7 +1,5 @@
 {
-    "enabled" : "True",
     "name" : "Καθαρισμός επιφάνειας εργασίας",
-    "actionType" : "custom",
     "asRoot": "0",
     "arguments" : [],
     "command" : "cd Επιφάνεια\\ εργασίας/ && find -mindepth 1 -delete"
