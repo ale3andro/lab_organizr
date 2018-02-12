@@ -507,7 +507,7 @@ class labOrganizr:
                                     add_line_to_log(self, hostname, "ssh", "Λάθος αριθμός ορισμάτων")
                                     return
                                 for i in range(1, len(fArgs) + 1):
-                                    command = command.replace('%' + str(i), fArgs[i])
+                                    command = command.replace("%" + str(i), fArgs[i])
                             queue.put(('custom', hostname, username, password, command))
                         elif (actionType == "get"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
