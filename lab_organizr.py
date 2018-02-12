@@ -444,7 +444,7 @@ class labOrganizr:
                                 exit("Δεν υποστηρίζεται το όρισμα")
                         # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
                         for key,value in fArgs.iteritems():
-                            command = command.replace("$" + str(key), value)
+                            command = command.replace("%" + str(key), value)
 
                 if (actionType == "put"):
                     #put_scpFolder = show_directory_chooser(self.window1, "Διάλεξε φάκελο για αποστολή", self.settings['general']['online_save_folder'])
@@ -501,13 +501,13 @@ class labOrganizr:
                             sshThread.daemon = True
                             sshThread.start()
                             # TODO πάρε από εδώ τον έλεγχο και βάλτο μέσα στο main κατασκευή command
-                            if (command.count('$')!=0):
-                                if (len(fArgs) != command.count('$')):
+                            if (command.count('%')!=0):
+                                if (len(fArgs) != command.count('%')):
                                     print "Error. Mismatch in number of argument"
                                     add_line_to_log(self, hostname, "ssh", "Λάθος αριθμός ορισμάτων")
                                     return
                                 for i in range(1, len(fArgs) + 1):
-                                    command = command.replace("$" + str(i), fArgs[i])
+                                    command = command.replace("%" + str(i), fArgs[i])
                             queue.put(('custom', hostname, username, password, command))
                         elif (actionType == "get"):
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
@@ -548,13 +548,13 @@ class labOrganizr:
                             sshThread = sshWorker(queue, friendlyname, self.liststore_log, self.w5_treeview_liststore)
                             sshThread.daemon = True
                             sshThread.start()
-                            if (command.count('$')!=0):
-                                if (len(fArgs) != command.count('$')):
+                            if (command.count('%')!=0):
+                                if (len(fArgs) != command.count('%')):
                                     print "Error. Mismatch in number of argument"
                                     add_line_to_log(self, hostname, "ssh", "Λάθος αριθμός ορισμάτων")
                                     return
                                 for i in range(1, len(fArgs) + 1):
-                                    command = command.replace("$" + str(i), fArgs[i])
+                                    command = command.replace("%" + str(i), fArgs[i])
                             queue.put(('ssh', hostname, username, password, command))
                     else:
                         print "Passed ssh phase w/o connections!"
