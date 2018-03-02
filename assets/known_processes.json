@@ -11,7 +11,8 @@
     { "app_name" : "Python PysioGame", "process_name" : "python" },
     { "app_name" : "EduActiv8", "process_name" : "eduActiv8" },
     { "app_name" : "Klavaro", "process_name" : "klavaro" },
-    { "app_name" : "Evince (pdf)", "process_name" : "evince"}
+    { "app_name" : "Evince (pdf)", "process_name" : "evince"},
+    { "app_name" : "Cmaptools (java)", "process_name" : "java"}
   ]
 
 }
