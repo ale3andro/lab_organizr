@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Πληκτρολόγιο Αγγλικά",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "export DISPLAY=:0 && setxkbmap us"
+}
