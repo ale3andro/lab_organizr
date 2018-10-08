@@ -4,7 +4,7 @@
 try:
     import json, sys, os, codecs, paramiko, ntpath, socket, time
     import threading, Queue, datetime, logging, re, glob
-    #import re
+    #sudo apt install python-paramiko
 
     from gi.repository import GObject, GLib
     from pcs import *
