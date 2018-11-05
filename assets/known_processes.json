@@ -9,7 +9,7 @@
     { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
     { "app_name" : "GCompris", "process_name" : "gcompris" },
     { "app_name" : "Python Eduactiv8", "process_name" : "python" },
-    { "app_name" : "Arduino", "process_name" : "arduino" },
+    { "app_name" : "Arduino", "process_name" : "java" },
     { "app_name" : "Klavaro", "process_name" : "klavaro" },
     { "app_name" : "Evince (pdf)", "process_name" : "evince"},
     { "app_name" : "Cmaptools (java)", "process_name" : "java"}
