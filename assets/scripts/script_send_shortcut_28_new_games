@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Αποστολή συντόμευσης - 28 νέα παιχνίδια 12/2018",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "wget http://sxoleio.pw/7.diafora/28_new_games.desktop && chmod +x 28_new_games.desktop && mv 28_new_games.desktop 'Επιφάνεια εργασίας'"
+}
