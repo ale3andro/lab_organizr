@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Αποστολή συντόμευσης tuxpaint στην Επιφάνεια Εργασίας",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "wget http://192.168.1.2/tmp/tuxpaint.desktop && chmod +x tuxpaint.desktop && mv tuxpaint.desktop 'Επιφάνεια εργασίας'"
+}
