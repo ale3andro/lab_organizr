@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Refresh desktop (F5)",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "export DISPLAY=:0 && xdotool key F5"
+}
