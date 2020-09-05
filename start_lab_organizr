@@ -1,4 +1,0 @@
-#!/bin/bash
-cd /home/ale3andro/Yandex.Disk/lab_organizr/
-python lab_organizr.py
-
