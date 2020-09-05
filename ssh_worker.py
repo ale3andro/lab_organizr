@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import threading, Queue, paramiko, socket, os, time, ntpath
+import threading, queue, paramiko, socket, os, time, ntpath
 
 class sshWorker(threading.Thread):
     def __init__(self, queue, name, liststore_log, liststore_action_progress):
@@ -40,12 +40,12 @@ class sshWorker(threading.Thread):
                 aCommand = "cd " + dirName.replace(" ", "\ ") + " && find . -maxdepth 1 -type f -printf '%f\\n'"
             else:
                 aCommand = "cd " + dirName.replace(" ", "\ ") + " && find . -maxdepth 1 -type f -name '*." + extension + "' -printf '%f\\n'"
-            print aCommand
+            print(aCommand)
             ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(aCommand.encode('utf-8'))
             for line in ssh_stdout.read().splitlines():
                 outFiles.append(line)
             for line in ssh_stderr.read().splitlines():
-                print line
+                print(line)
                 self.liststore_log.append([self.get_time(), str(theHostname), "thread-list_remote_files-2", "Σφάλμα λίστας αρχείων"])
         except paramiko.SSHException:
             self.liststore_log.append([self.get_time(), str(theHostname), "thread-list_remote_files-3", "SSH Exception."])
@@ -106,7 +106,7 @@ class sshWorker(threading.Thread):
                 except paramiko.SSHException as e:
                     self.liststore_log.append([self.get_time(), hostname, "put", "Αδυναμία σύνδεσης ssh_put"])
                     self.modify_line_to_action_progress_log(hostname, "Αδυναμία σύνδεσης ssh")
-                    print e
+                    print(e)
                 self.queue.task_done()
             elif (details[0]=="get"):
                 origin = details[4]
