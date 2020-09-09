@@ -436,13 +436,15 @@ class labOrganizr:
                 if (len(actionArguments)>0):
                     for argument in actionArguments:
                         if (argument["type"]=="instanceBox"):
-                            fArgs[int(argument['num'])] = self.show_text_entry_dialog(argument['prompt'])
-                            if fArgs[int(argument['num'])]==-1:
-                                return
+                            if 'prompt' in argument.keys():
+                                fArgs[int(argument['num'])] = self.show_text_entry_dialog(argument['prompt'])
+                            else:
+                                fArgs[int(argument['num'])]=-1
                         elif (argument["type"]=="textBox"):
-                            fArgs[int(argument['num'])] = self.show_simple_text_entry_dialog(argument['prompt'])
-                            if fArgs[int(argument['num'])]==-1:
-                                return
+                            if 'prompt' in argument.keys():
+                                fArgs[int(argument['num'])] = self.show_simple_text_entry_dialog(argument['prompt'])
+                            else:
+                                fArgs[int(argument['num'])]=-1
                         elif (argument["type"]=="fileChooser"):
                             fArgs[int(argument["num"])] = show_file_chooser(self.window1, "Διάλεξε αρχείο", self.settings['general']['online_save_folder'])
                             if fArgs[int(argument['num'])] == -1:
@@ -454,8 +456,8 @@ class labOrganizr:
                         else:
                             exit("Δεν υποστηρίζεται το όρισμα")
                     # Δημιουργία του Command - TODO εδώ να μπει έλεγχος σε περίπτωση που δεν καλύπτονται όλα τα ορίσματα`
-                    for key,value in fArgs.iteritems():
-                        command = command.replace("%" + str(key), value)
+                    for key,value in fArgs.items():
+                        command = command.replace("%" + str(key), str(value))
             if (actionType == "put"):
                 #put_scpFolder = show_directory_chooser(self.window1, "Διάλεξε φάκελο για αποστολή", self.settings['general']['online_save_folder'])
                 #print(put_scpFolder)

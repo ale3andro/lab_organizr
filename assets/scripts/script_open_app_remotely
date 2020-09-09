@@ -3,6 +3,6 @@
     "name" : "Άνοιγμα εφαρμογής",
     "actionType" : "custom",
     "asRoot": "0",
-    "arguments" : [ {"num" : "0", "type" : "textBox"} ],
+    "arguments" : [ {"num" : "0", "type" : "textBox", "prompt" : "Δώσε όνομα εφαρμογής:"} ],
     "command" : "export DISPLAY=:0 && %0 &"
 }
