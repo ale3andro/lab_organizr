@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+import sys
+try:
+  assert sys.version_info >= (3, 0)
+except AssertionError:
+  sys.exit("This script requires Python version 3")
 
 try:
-    import json, sys, os, codecs, paramiko, ntpath, socket, time
+    import json, os, codecs, paramiko, ntpath, socket, time
     import threading, datetime, logging, re, glob
     import queue as Queue
     from importlib import reload
