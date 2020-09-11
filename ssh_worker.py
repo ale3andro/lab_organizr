@@ -68,11 +68,11 @@ class sshWorker(threading.Thread):
                     try:
                         ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command)
                         for line in ssh_stdout.read().splitlines():
-                            self.liststore_log.append([self.get_time(), hostname, "custom-responce", line])
+                            self.liststore_log.append([self.get_time(), hostname, "custom-responce", line.decode("utf-8") ])
                         countLines = 0
                         for line in ssh_stderr.read().splitlines():
-                            self.liststore_log.append([self.get_time(), hostname, "custom-error", line])
-                            self.modify_line_to_action_progress_log(hostname, line)
+                            self.liststore_log.append([self.get_time(), hostname, "custom-error", line.decode("utf-8")])
+                            self.modify_line_to_action_progress_log(hostname, line.decode("utf-8"))
                             countLines += 1
                         if (countLines == 0):
                             self.liststore_log.append([self.get_time(), hostname, "custom", "Επιτυχής εκτέλεση εντολής:" + command])

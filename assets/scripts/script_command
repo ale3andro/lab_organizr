@@ -3,8 +3,7 @@
     "name" : "custom bash command",
     "actionType" : "custom",
     "asRoot": "0",
-    "arguments" : [ { "num":"0", "type":"textBox", "prompt":"Όνομα διεργασίας"},
-                    { "num":"1", "type":"fileChooser", "prompt":"Διάλεξε αρχείο:"}
+    "arguments" : [ { "num":"0", "type":"textBox", "prompt":"Όνομα διεργασίας"}                    
                   ],
-    "command" : "rm google*.deb && ls *.deb"
+    "command" : "$0"
 }
