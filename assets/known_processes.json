@@ -1,6 +1,6 @@
 {
   "known_processes" : [
-    { "app_name" : "Mozilla Firefox", "process_name" : "MainThread" },
+    { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
     { "app_name" : "Palemoon Browser", "process_name" : "palemoon" },
     { "app_name" : "Audacity", "process_name" : "audacity" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
