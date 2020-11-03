@@ -129,7 +129,7 @@ class sshWorker(threading.Thread):
                             if (not displayOnly):
                                 if not os.path.exists(destination):
                                     os.makedirs(destination)
-                                sftp.get(origin + file, destination + file)
+                                sftp.get(origin.encode() + file, destination.encode() + file)
                                 self.liststore_log.append([self.get_time(), hostname, "get", "Επιτυχής λήψη αρχείου: " + str(file)])
                                 self.modify_line_to_action_progress_log(hostname, "Ok")
                         allUserFiles = allUserFiles[:-2]
