@@ -354,7 +354,7 @@ class labOrganizr:
                 self.w4_combo_dates.set_active(0)
             self.w4_button_ok.set_sensitive(True)
         except OSError:
-            self.logger.warn("Συνάρτηση updateW4, αδυναμία δημιουργίας λίστας αρχείων φακέλου.")
+            self.logger.warning("Συνάρτηση updateW4, αδυναμία δημιουργίας λίστας αρχείων φακέλου.")
             self.w4_button_ok.set_sensitive(False)
 
     def on_receive_files_classes_combobox_changed(self, *args):

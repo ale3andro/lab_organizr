@@ -160,7 +160,7 @@ class sshWorker(threading.Thread):
                         self.modify_line_to_action_progress_log(hostname, "Δεν υπάρχουν αρχεία για επιστροφή στο φάκελο")
                     else:
                         for item in os.listdir(origin):
-                            sftp.put(origin+item, destination+item)
+                            sftp.put(origin.decode("utf-8") +item.decode("utf-8") , destination +item.decode("utf-8") )
                         self.liststore_log.append([self.get_time(), hostname, "return", "Επιτυχής αποστολή αρχείων."])
                         self.modify_line_to_action_progress_log(hostname, "Ok")
                 except paramiko.SSHException:
