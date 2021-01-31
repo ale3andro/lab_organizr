@@ -1,7 +1,6 @@
 {
   "known_processes" : [
     { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
-    { "app_name" : "Palemoon Browser", "process_name" : "palemoon" },
     { "app_name" : "Audacity", "process_name" : "audacity" },
     { "app_name" : "Pictoblox", "process_name" : "pictoblox" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
@@ -16,7 +15,7 @@
     { "app_name" : "Klavaro", "process_name" : "klavaro" },
     { "app_name" : "Evince (pdf)", "process_name" : "evince"},
     { "app_name" : "Atril (pdf)", "process_name" : "atril"},
-    { "app_name" : "Cmaptools (java)", "process_name" : "java"}
+    { "app_name" : "FlashPlayer (games)", "process_name" : "flashplayer"}
   ]
 
 }
