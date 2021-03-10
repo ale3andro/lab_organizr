@@ -1,7 +1,7 @@
 {
   "known_processes" : [
     { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
-    { "app_name" : "Audacity", "process_name" : "audacity" },
+    { "app_name" : "Thunar (file manager)", "process_name" : "Thunar" },
     { "app_name" : "Pictoblox", "process_name" : "pictoblox" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
     { "app_name" : "Tuxpaint", "process_name" : "tuxpaint" },
