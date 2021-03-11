@@ -1,8 +1,0 @@
-{
-    "enabled" : "True",
-    "name" : "Αποστολή συντόμευσης - Τα καλύτερα παιχνίδια του Πέρη και της Κάτιας",
-    "actionType" : "custom",
-    "asRoot": "0",
-    "arguments" : [],
-    "command" : "wget http://sxoleio.pw/7.diafora/Peris_katia.best.desktop && chmod +x  Peris_katia.best.desktop && mv  Peris_katia.best.desktop 'Επιφάνεια εργασίας'"
-}
