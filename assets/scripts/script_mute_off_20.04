@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Mute Off",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "amixer -q -D pulse sset Master 'unmute'"
+}
