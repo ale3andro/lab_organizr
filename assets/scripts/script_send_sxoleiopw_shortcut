@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Αποστολή συντόμευσης sxoleio.pw στην Επιφάνεια Εργασίας",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "wget http://sxoleio.pw/it/app_shortcuts/sxoleiopw.desktop && chmod +x sxoleiopw.desktop && mv sxoleiopw.desktop 'Επιφάνεια εργασίας'"
+}
