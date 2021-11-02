@@ -9,7 +9,7 @@
     { "app_name" : "Scratch 2.0", "process_name" : "'Scratch 2'" },
     { "app_name" : "ScratchJr", "process_name" : "'ScratchJr'" },
     { "app_name" : "alx_Scratch 2.0", "process_name" : "adl" },
-    { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
+    { "app_name" : "Gimp", "process_name" : "gimp" },
     { "app_name" : "GCompris", "process_name" : "gcompris-qt" },
     { "app_name" : "Eduactiv8 (deb)", "process_name" : "python2" },
     { "app_name" : "Arduino", "process_name" : "java" },
