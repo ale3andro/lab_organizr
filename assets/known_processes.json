@@ -7,6 +7,7 @@
     { "app_name" : "Tuxpaint", "process_name" : "tuxpaint" },
     { "app_name" : "Scratch 1.0", "process_name" : "squeakvm" },
     { "app_name" : "Scratch 2.0", "process_name" : "'Scratch 2'" },
+    { "app_name" : "Mind+", "process_name" : "mindplus" },
     { "app_name" : "ScratchJr", "process_name" : "'ScratchJr'" },
     { "app_name" : "alx_Scratch 2.0", "process_name" : "adl" },
     { "app_name" : "Gimp", "process_name" : "gimp" },
