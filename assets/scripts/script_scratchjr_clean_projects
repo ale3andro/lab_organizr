@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Διαγραφή έργων του ScratchJr",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "rm -rf '/home/user/Έγγραφα/ScratchJR/'"
+}
