@@ -4,5 +4,5 @@
     "actionType" : "custom",
     "asRoot": "0",
     "arguments" : [],
-    "command" : "cp  /usr/share/applications/ScratchJr.desktop 'Επιφάνεια εργασίας' && cd 'Επιφάνεια εργασίας' && chmod +x ScratchJr.desktop"
+    "command" : "cp  /usr/share/applications/scratchjr.desktop 'Επιφάνεια εργασίας' && cd 'Επιφάνεια εργασίας' && chmod +x scratchjr.desktop"
 }
