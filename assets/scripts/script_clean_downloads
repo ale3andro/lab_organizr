@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Καθαρισμός φακέλου λήψεων",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [],
+    "command" : "cd Λήψεις/ && find -mindepth 1 -delete"
+}

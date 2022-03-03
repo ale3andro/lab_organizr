@@ -165,6 +165,16 @@ class labOrganizr:
         self.w2_combo.pack_start(cell, True)
         self.w2_combo.add_attribute(cell, "text", 0)
         #Window 3
+        self.w3_combo1 = self.builder.get_object("rf_combobox1")
+        self.w3_folders_liststore = self.builder.get_object("folders_liststore")
+        self.w3_folders_liststore.append(["Επιφάνεια εργασίας"])
+        self.w3_folders_liststore.append(["Λήψεις"])
+        self.w3_folders_liststore.append(["Προσωπικός φάκελος (home)"])
+        cell = Gtk.CellRendererText()
+        self.w3_combo1.pack_start(cell, True)
+        self.w3_combo1.add_attribute(cell, "text", 0)
+        self.w3_combo1.set_active(0)
+
         self.w3_combo = self.builder.get_object("rf_combobox")
         self.w3_radiobutton_online_storage = self.builder.get_object("rf_radiobutton_online_storage")
         self.w3_entry_extension = self.builder.get_object("rf_entry_extension")
@@ -309,10 +319,13 @@ class labOrganizr:
             self.w3_entry_extension.set_text(defaultExtension)
         if self.window3.run() == 1:
             self.window3.hide()
+            
             index = self.w3_combo.get_active()
             model = self.w3_combo.get_model()
+            index1 = self.w3_combo1.get_active()
+            model1 = self.w3_combo1.get_model()
             self.onlineStorage = self.w3_radiobutton_online_storage.get_active()
-            return (model[index][0], re.sub('[*.]', '', self.w3_entry_extension.get_text()))
+            return (model[index][0], re.sub('[*.]', '', self.w3_entry_extension.get_text()), model1[index1][0])
         self.window3.hide()
         return -1
 
@@ -480,7 +493,7 @@ class labOrganizr:
                         if (argument["type"]=="listOnly"):
                             displayOnly = True
                 if (not displayOnly):
-                    school_class, extension = self.show_rf_entry_dialog(defaultExtension)
+                    school_class, extension, selected_folder = self.show_rf_entry_dialog(defaultExtension)
                     if school_class==-1:
                         return
                     if (len(actionArguments)>0):
@@ -505,7 +518,10 @@ class labOrganizr:
             for item in self.selectedPcs:
                 hostname = self.selectedPcs[item]['ip']
                 friendlyname = self.selectedPcs[item]['id']
-                desktopFolderName = self.selectedPcs[item]['desktop_folder_name']
+                if (actionType == "get"):
+                    desktopFolderName = selected_folder
+                else:
+                    desktopFolderName = self.selectedPcs[item]['desktop_folder_name']
                 if asRoot == "1":
                     username = self.selectedPcs[item]['super_username']
                     password = self.selectedPcs[item]['super_password']
@@ -532,7 +548,11 @@ class labOrganizr:
                         sshThread.daemon = True
                         sshThread.start()
                         if (originFolder == ""):
-                            origin = "/home/" + username + "/" + desktopFolderName + "/"
+                            if (desktopFolderName!='Προσωπικός φάκελος (home)'):
+                                origin = "/home/" + username + "/" + desktopFolderName + "/"
+                            else:
+                                origin = "/home/" + username + "/"
+                            print(origin)
                         else:
                             origin = originFolder
                         origin.encode("utf-8")

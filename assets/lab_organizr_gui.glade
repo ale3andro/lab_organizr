@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkListStore" id="action_progress_liststore">
@@ -20,6 +20,9 @@
     <property name="default_width">440</property>
     <property name="default_height">250</property>
     <property name="decorated">False</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkGrid" id="grid7">
         <property name="visible">True</property>
@@ -101,6 +104,12 @@
       </object>
     </child>
   </object>
+  <object class="GtkListStore" id="folders_liststore">
+    <columns>
+      <!-- column-name folder_name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkListStore" id="liststore_log">
     <columns>
       <!-- column-name msg_time -->
@@ -136,6 +145,9 @@
     <property name="window_position">center-always</property>
     <property name="default_width">800</property>
     <property name="default_height">700</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox" id="box1">
         <property name="visible">True</property>
@@ -559,6 +571,9 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window1</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox4">
         <property name="visible">True</property>
@@ -600,7 +615,7 @@
             <property name="expand">False</property>
             <property name="fill">False</property>
             <property name="pack_type">end</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -649,6 +664,39 @@
           </packing>
         </child>
         <child>
+          <object class="GtkGrid" id="grid9">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkComboBox" id="rf_combobox1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="model">folders_liststore</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="rf_label4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Από φάκελο:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkGrid" id="grid3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -678,7 +726,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
         <child>
@@ -695,7 +743,7 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">5</property>
           </packing>
         </child>
         <child>
@@ -712,11 +760,8 @@
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">5</property>
+            <property name="position">6</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>
@@ -731,6 +776,9 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window1</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox3">
         <property name="visible">True</property>
@@ -847,6 +895,9 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window1</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
         <property name="can_focus">False</property>
@@ -1014,6 +1065,9 @@
   <object class="GtkDialog" id="simpleTextBox_stb">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox">
         <property name="can_focus">False</property>
