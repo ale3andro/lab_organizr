@@ -1,9 +1,9 @@
 {
     "enabled" : "True",
-    "name" : "custom bash command",
+    "name" : "Custom bash command (user privileges)",
     "actionType" : "custom",
     "asRoot": "0",
     "arguments" : [ { "num":"0", "type":"textBox", "prompt":"Όνομα διεργασίας"}                    
                   ],
-    "command" : "$0"
+    "command" : "%0"
 }

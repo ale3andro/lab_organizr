@@ -55,6 +55,7 @@ class labOrganizr:
         self.window4 = self.builder.get_object("textEntryDialog_receivefiles")
         self.window5 = self.builder.get_object("window_actionProgress")
         self.window6 = self.builder.get_object("simpleTextBox_stb")
+        self.window7 = self.builder.get_object("textEntryDialog_shortcuts")
         self.window1.connect('destroy', lambda w: Gtk.main_quit())
 
         # Message Log Creation
@@ -147,6 +148,11 @@ class labOrganizr:
         self.w2_label = self.builder.get_object("ted_label")
         self.w2_combo = self.builder.get_object("ted_combobox")
         self.w2_combo_liststore = self.builder.get_object("liststore_ted_combobox")
+        
+        # Window 7
+        self.w7_combo = self.builder.get_object("ted_combobox1")
+        self.w7_combo_liststore_shortcuts = self.builder.get_object("liststore_known_shortcuts")
+        # Reading known processes
         try:
             json_data = open("assets/known_processes.json")
             self.known_processes = json.load(json_data)
@@ -159,11 +165,32 @@ class labOrganizr:
             self.logger.error("Το json αρχείο των γνωστών processes δεν είναι έγκυρο - διαδρομή assets/known_processes.json")
             exit(-1)
         json_data.close()
+        # Reading known shortcuts
+        try:
+            json_data = open("assets/known_shortcuts.json")
+            self.known_shortcuts = json.load(json_data)
+        except IOError:
+            show_warning_window(self.window1, "Αδυναμία εντοπισμού αρχείου γνωστών shortcuts")
+            self.logger.error("Αδυναμία εντοπισμού αρχείου γνωστών shortcuts - διαδρομή assets/known_shortcuts.json")
+            exit(-1)
+        except:
+            show_warning_window(self.window1, "Σφάλμα μορφοποίησης στο αρχείο των γνωστών shortcuts.")
+            self.logger.error("Το json αρχείο των γνωστών proshortcutsesses δεν είναι έγκυρο - διαδρομή assets/known_shortcuts.json")
+            exit(-1)
+        json_data.close()
+        # Populating known processes liststore
         for item in self.known_processes['known_processes']:
             self.w2_combo_liststore.append([str(item['app_name']), str(item['process_name'])])
         cell = Gtk.CellRendererText()
         self.w2_combo.pack_start(cell, True)
         self.w2_combo.add_attribute(cell, "text", 0)
+        # Populating known shortcuts liststore
+        for item in self.known_shortcuts['known_shortcuts']:
+            self.w7_combo_liststore_shortcuts.append([str(item['app_name']), str(item['shortcut_name'])])
+        cell = Gtk.CellRendererText()
+        self.w7_combo.pack_start(cell, True)
+        self.w7_combo.add_attribute(cell, "text", 0)
+
         #Window 3
         self.w3_combo1 = self.builder.get_object("rf_combobox1")
         self.w3_folders_liststore = self.builder.get_object("folders_liststore")
@@ -383,9 +410,17 @@ class labOrganizr:
         selectedClass = model[index][0]
         self.updateW4()
 
+    def show_shortcut_entry_dialog(self):
+        if self.window7.run() == 1:
+            self.window7.hide()
+            index = self.w7_combo.get_active()
+            model = self.w7_combo.get_model()
+            item = model[index]
+            return item[1]
+        self.window7.hide()
+        return -1
+
     def show_text_entry_dialog(self, msg="Όνομα εφαρμογής"):
-        self.w2_entry.set_text("")
-        self.w2_label.set_text(msg)
         if self.window2.run() == 1:
             self.window2.hide()
             if (self.w2_entry.get_text()!=""):
@@ -456,6 +491,11 @@ class labOrganizr:
                         if (argument["type"]=="instanceBox"):
                             if 'prompt' in argument.keys():
                                 fArgs[int(argument['num'])] = self.show_text_entry_dialog(argument['prompt'])
+                            else:
+                                fArgs[int(argument['num'])]=-1
+                        elif (argument["type"]=="shortcutBox"):
+                            if 'prompt' in argument.keys():
+                                fArgs[int(argument['num'])] = self.show_shortcut_entry_dialog()
                             else:
                                 fArgs[int(argument['num'])]=-1
                         elif (argument["type"]=="textBox"):
@@ -552,7 +592,6 @@ class labOrganizr:
                                 origin = "/home/" + username + "/" + desktopFolderName + "/"
                             else:
                                 origin = "/home/" + username + "/"
-                            print(origin)
                         else:
                             origin = originFolder
                         origin.encode("utf-8")

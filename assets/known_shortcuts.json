@@ -1,0 +1,29 @@
+{
+  "known_shortcuts" : [
+    { "app_name" : "45 παιχνίδια", "shortcut_name" : "alx_category_45_games.desktop" },
+    { "app_name" : "17 νέα παιχνίδια", "shortcut_name" : "alx_category_17_games.desktop" },
+    { "app_name" : "Mozilla Firefox", "shortcut_name" : "firefox.desktop" },
+    { "app_name" : "LibreOffice Writer", "shortcut_name" : "libreoffice-writer.desktop" },
+    { "app_name" : "LibreOffice Calc", "shortcut_name" : "libreoffice-calc.desktop" },
+    { "app_name" : "LibreOffice Impress", "shortcut_name" : "libreoffice-impress.desktop" },
+    { "app_name" : "Pictoblox", "shortcut_name" : "pictoblox.desktop" },
+    { "app_name" : "Tuxpaint", "shortcut_name" : "tuxpaint.desktop" },
+    { "app_name" : "ScratchJr", "shortcut_name" : "scratchjr.desktop" },
+    { "app_name" : "Scratch 1.0", "shortcut_name" : "scratch.desktop" },
+    { "app_name" : "Scratch 2.0", "shortcut_name" : "scratch2.desktop'" },
+    { "app_name" : "Mind+", "shortcut_name" : "mindplus.desktop" },
+    { "app_name" : "Gimp", "shortcut_name" : "gimp.desktop" },
+    { "app_name" : "GCompris", "shortcut_name" : "org.kde.gcompris.desktop" },
+    { "app_name" : "Eduactiv8 (deb)", "shortcut_name" : "eduactiv8.desktop" },
+    { "app_name" : "Arduino", "shortcut_name" : "arduino.desktop" },
+    { "app_name" : "Χριστουγεννιάτικα παιχνίδια", "shortcut_name" : "alx_category_christmas_games.desktop" },
+    { "app_name" : "Εκπαιδευτικές εφαρμογές", "shortcut_name" : "alx_category_efarmoges.desktop" },
+    { "app_name" : "Παιχνίδια με κέρματα του ευρώ", "shortcut_name" : "alx_category_euro_games.desktop" },
+    { "app_name" : "Παιχνίδια Α τάξης (αρχή χρονιάς)", "shortcut_name" : "alx_category_games_a.desktop" },
+    { "app_name" : "Παιχνίδια - Γρίφοι", "shortcut_name" : "alx_category_grifoi.desktop" },
+    { "app_name" : "Παιχνίδια flash με ποντίκι (Α τάξη)", "shortcut_name" : "alx_category_mouse_intro.desktop" },
+    { "app_name" : "Νέα παιχνίδια (μεγάλες τάξεις)", "shortcut_name" : "alx_category_new_games.desktop" },
+    { "app_name" : "Διάφορα παιχνίδια", "shortcut_name" : "alx_category_various.desktop" }
+  ]
+
+}

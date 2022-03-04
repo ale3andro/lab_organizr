@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Αποστολή συντόμευσης εφαρμογής στην Επιφάνεια Εργασίας",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [{"num" : "0", "type":"shortcutBox", "prompt": "Όνομα εφαρμογής;"} ],
+    "command" : "cp  /usr/share/applications/%0 'Επιφάνεια εργασίας' && cd 'Επιφάνεια εργασίας' && chmod +x %0"
+}

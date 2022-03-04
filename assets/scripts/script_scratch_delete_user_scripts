@@ -1,8 +1,0 @@
-{
-    "enabled" : "True",
-    "name" : "Scratch - Διαγραφή scripts μαθητών",
-    "actionType" : "custom",
-    "asRoot": "0",
-    "arguments" : [ ],
-    "command" : "rm /home/user/*.sb"
-}

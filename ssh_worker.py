@@ -67,8 +67,14 @@ class sshWorker(threading.Thread):
                     ssh.connect(hostname=hostname, username=username, password=password, timeout=5)
                     try:
                         ssh_stdin, ssh_stdout, ssh_stderr = ssh.exec_command(command)
+                        lineCounter=0
                         for line in ssh_stdout.read().splitlines():
                             self.liststore_log.append([self.get_time(), hostname, "custom-responce", line.decode("utf-8") ])
+                            if (lineCounter==0):
+                                self.modify_line_to_action_progress_log(hostname, line.decode("utf-8"))
+                                lineCounter+=1
+                            else:
+                                self.modify_line_to_action_progress_log(hostname, self.get_text_from_action_progress_log(hostname) + " | " + line.decode("utf-8"))
                         countLines = 0
                         for line in ssh_stderr.read().splitlines():
                             self.liststore_log.append([self.get_time(), hostname, "custom-error", line.decode("utf-8")])
@@ -76,7 +82,7 @@ class sshWorker(threading.Thread):
                             countLines += 1
                         if (countLines == 0):
                             self.liststore_log.append([self.get_time(), hostname, "custom", "Επιτυχής εκτέλεση εντολής:" + command])
-                            self.modify_line_to_action_progress_log(hostname, "Ok")
+                            #self.modify_line_to_action_progress_log(hostname, "Ok")
                     except paramiko.SSHException:
                         self.liststore_log.append(
                             [self.get_time(), hostname, "ssh-error", "Αποτυχία εκτέλεση εντολής:" + command])

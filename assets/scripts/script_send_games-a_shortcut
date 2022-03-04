@@ -1,8 +1,0 @@
-{
-    "enabled" : "True",
-    "name" : "Αποστολή συντόμευσης Παιχνιδιών Α (flashplayer) στην Επιφάνεια Εργασίας",
-    "actionType" : "custom",
-    "asRoot": "0",
-    "arguments" : [],
-    "command" : "cp /usr/share/applications/alx_category_games_a.desktop ~/'Επιφάνεια εργασίας'"
-}

@@ -1,9 +1,0 @@
-{
-    "enabled" : "True",
-    "name" : "Scratch - Λήψη σεναρίων",
-    "actionType" : "get",
-    "asRoot": "0",
-    "arguments" : [ { "num":"0", "type":"originFolder", "directory":"/home/user/"},
-                    { "num":"1", "type":"defaultExtension", "extension":"*.sb"} ],
-    "command" : ""
-}

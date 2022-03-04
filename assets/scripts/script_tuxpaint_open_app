@@ -1,7 +1,0 @@
-{
-    "name" : "Tuxpaint - Άνοιγμα εφαρμογής",
-    "actionType" : "custom",
-    "asRoot": "0",
-    "arguments" : [ ],
-    "command" : "export DISPLAY=:0 && tuxpaint &"
-}
