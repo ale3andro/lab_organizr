@@ -1,15 +1,25 @@
 {
   "known_processes" : [
     { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
-    { "app_name" : "Audacity", "process_name" : "audacity" },
+    { "app_name" : "Thunar (file manager)", "process_name" : "Thunar" },
+    { "app_name" : "Pictoblox", "process_name" : "pictoblox" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
     { "app_name" : "Tuxpaint", "process_name" : "tuxpaint" },
+    { "app_name" : "Epoptes client VNC (22.04)", "process_name" : "xtigervncviewer" },
     { "app_name" : "Scratch 1.0", "process_name" : "squeakvm" },
-    { "app_name" : "Scratch 2.0", "process_name" : "Scratch 2" },
-    { "app_name" : "Gimp", "process_name" : "gimp-2.8" },
-    { "app_name" : "GCompris", "process_name" : "gcompris" },
-    { "app_name" : "Python PysioGame", "process_name" : "python" },
-    { "app_name" : "Klavaro", "process_name" : "klavaro" }
+    { "app_name" : "Scratch 2.0", "process_name" : "'Scratch 2'" },
+    { "app_name" : "Mind+", "process_name" : "mindplus" },
+    { "app_name" : "ScratchJr", "process_name" : "'ScratchJr'" },
+    { "app_name" : "alx_Scratch 2.0", "process_name" : "adl" },
+    { "app_name" : "Gimp", "process_name" : "gimp" },
+    { "app_name" : "Google Chrome", "process_name" : "chrome" },
+    { "app_name" : "GCompris", "process_name" : "gcompris-qt" },
+    { "app_name" : "Eduactiv8 (deb)", "process_name" : "python2" },
+    { "app_name" : "Arduino", "process_name" : "java" },
+    { "app_name" : "Klavaro", "process_name" : "klavaro" },
+    { "app_name" : "Evince (pdf)", "process_name" : "evince"},
+    { "app_name" : "Atril (pdf)", "process_name" : "atril"},
+    { "app_name" : "FlashPlayer (games)", "process_name" : "flashplayer"}
   ]
 
 }
