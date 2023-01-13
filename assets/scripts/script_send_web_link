@@ -1,0 +1,8 @@
+{
+    "enabled" : "True",
+    "name" : "Αποστολή συντόμευσης σε ιστοσελίδα",
+    "actionType" : "custom",
+    "asRoot": "0",
+    "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Διεύθυνση:"}, {"num" : "1", "type":"textBox", "prompt": "Όνομα link (χωρίς κενά!!):"} ],
+    "command" : "wget http://sxoleio.pw/it/app_shortcuts/web_shortcut.desktop  && sed -i 's;http://sxoleio.pw;%0;g' web_shortcut.desktop && sed -i 's;link-name;%1;g' web_shortcut.desktop && chmod +x web_shortcut.desktop && mv web_shortcut.desktop %1.desktop && mv %1.desktop 'Επιφάνεια εργασίας'"
+}

@@ -15,6 +15,7 @@ try:
     from gi.repository import GObject, GLib
     from pcs import *
     from ssh_worker import sshWorker
+    from urllib.parse import unquote
 except ImportError:
     show_warning_window(self.window1, "Κάποια από τις εξαρτήσεις της εφαρμογής δεν έχουν εγκατασταθεί")
     exit(-1)
@@ -435,10 +436,11 @@ class labOrganizr:
 
     def show_simple_text_entry_dialog(self, msg="Τιμή;"):
         self.w6_label.set_text(msg)
+        self.w6_text.set_text('')
         if self.window6.run() == 1:
             self.window6.hide()
             if (self.w6_text.get_text()!=""):
-                return self.w6_text.get_text()
+                return unquote(self.w6_text.get_text())
             else:
                 return -1
         self.window6.hide()
