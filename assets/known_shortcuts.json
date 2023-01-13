@@ -6,6 +6,7 @@
     { "app_name" : "LibreOffice Writer", "shortcut_name" : "libreoffice-writer.desktop" },
     { "app_name" : "LibreOffice Calc", "shortcut_name" : "libreoffice-calc.desktop" },
     { "app_name" : "LibreOffice Impress", "shortcut_name" : "libreoffice-impress.desktop" },
+    { "app_name" : "KIDepedia", "shortcut_name" : "alx_kidepedia.desktop" },
     { "app_name" : "Pictoblox", "shortcut_name" : "pictoblox.desktop" },
     { "app_name" : "Tuxpaint", "shortcut_name" : "tuxpaint.desktop" },
     { "app_name" : "ScratchJr", "shortcut_name" : "scratchjr.desktop" },
