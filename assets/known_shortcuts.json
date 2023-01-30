@@ -9,6 +9,7 @@
     { "app_name" : "KIDepedia", "shortcut_name" : "alx_kidepedia.desktop" },
     { "app_name" : "Pictoblox", "shortcut_name" : "pictoblox.desktop" },
     { "app_name" : "Tuxpaint", "shortcut_name" : "tuxpaint.desktop" },
+    { "app_name" : "Mouse Training", "shortcut_name" : "alx_mouse_training.desktop" },
     { "app_name" : "ScratchJr", "shortcut_name" : "scratchjr.desktop" },
     { "app_name" : "Scratch 1.0", "shortcut_name" : "scratch.desktop" },
     { "app_name" : "Scratch 2.0", "shortcut_name" : "scratch2.desktop'" },
