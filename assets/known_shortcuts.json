@@ -17,7 +17,7 @@
     { "app_name" : "Gimp", "shortcut_name" : "gimp.desktop" },
     { "app_name" : "GCompris", "shortcut_name" : "org.kde.gcompris.desktop" },
     { "app_name" : "Eduactiv8 (deb)", "shortcut_name" : "eduactiv8.desktop" },
-    { "app_name" : "Arduino", "shortcut_name" : "arduino.desktop" },
+    { "app_name" : "Ταίριαξε τα σχήματα", "shortcut_name" : "alx_shape_match.desktop" },
     { "app_name" : "Χριστουγεννιάτικα παιχνίδια", "shortcut_name" : "alx_category_christmas_games.desktop" },
     { "app_name" : "Εκπαιδευτικές εφαρμογές", "shortcut_name" : "alx_category_efarmoges.desktop" },
     { "app_name" : "Παιχνίδια με κέρματα του ευρώ", "shortcut_name" : "alx_category_euro_games.desktop" },

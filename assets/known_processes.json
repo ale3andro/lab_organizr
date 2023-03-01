@@ -16,7 +16,7 @@
     { "app_name" : "Gimp", "process_name" : "gimp" },
     { "app_name" : "Google Chrome", "process_name" : "chrome" },
     { "app_name" : "GCompris", "process_name" : "gcompris-qt" },
-    { "app_name" : "Eduactiv8 (deb)", "process_name" : "python2" },
+    { "app_name" : "Eduactiv8 (deb)", "process_name" : "python3" },
     { "app_name" : "Arduino", "process_name" : "java" },
     { "app_name" : "Klavaro", "process_name" : "klavaro" },
     { "app_name" : "Evince (pdf)", "process_name" : "evince"},
