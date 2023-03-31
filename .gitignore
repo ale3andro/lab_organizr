@@ -2,5 +2,3 @@ assets/settings.json
 log/
 *.pyc
 *~
-*.tar.bz2
-
