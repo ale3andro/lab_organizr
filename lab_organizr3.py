@@ -510,7 +510,7 @@ class labOrganizr:
                             if fArgs[int(argument['num'])] == -1:
                                 return
                         elif (argument["type"] == "directoryChooser"):
-                            fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε αρχείο")
+                            fArgs[int(argument["num"])] = show_directory_chooser(self.window1, "Διάλεξε φάκελο")
                             if fArgs[int(argument['num'])] == -1:
                                 return
                         else:
@@ -519,9 +519,6 @@ class labOrganizr:
                     for key,value in fArgs.items():
                         command = command.replace("%" + str(key), str(value))
             if (actionType == "put"):
-                #put_scpFolder = show_directory_chooser(self.window1, "Διάλεξε φάκελο για αποστολή", self.settings['general']['online_save_folder'])
-                #print(put_scpFolder)
-                #exit(1)
                 put_scpFiles = show_file_chooser(self.window1, "Διάλεξε αρχείο για αποστολή", self.settings['general']['online_save_folder'])
                 if (put_scpFiles == "-1"):
                     print("action aborted")
