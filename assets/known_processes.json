@@ -4,7 +4,7 @@
     { "app_name" : "Thunar (file manager)", "process_name" : "Thunar" },
     { "app_name" : "FlashPlayer (games)", "process_name" : "flashplayer"},
     { "app_name" : "Kidepedia (wine)", "process_name" : "start_kd.exe"},
-    { "app_name" : "Pictoblox", "process_name" : "pictoblox" },
+    { "app_name" : "Kidepedia", "process_name" : "start_kd.exe" },
     { "app_name" : "LibreOffice", "process_name" : "soffice.bin" },
     { "app_name" : "Tuxpaint", "process_name" : "tuxpaint" },
     { "app_name" : "Epoptes client VNC (22.04)", "process_name" : "xtigervncviewer" },
