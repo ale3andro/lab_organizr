@@ -1,0 +1,37 @@
+{
+    "general" :
+                {"online_save_folder" : "/home/ale3andro/Yandex.Disk/files/",
+                  "offline_save_folder" : "/home/ale3andro/lab_organizr_offline_save/",
+                  "school_classes" : "Α1,Α2,Α3,Β1,Β2,Β3,Γ1,Γ2,Δ1,Δ2,Δ3,Ε1,Ε2,Ε3,ΣΤ1,ΣΤ2,ΣΤ3"
+                },
+    "client_classes" : [
+                {"id":"0", "label" : "Xubuntu Linux GR", "desktop_folder_name" : "Επιφάνεια εργασίας"}
+          ],
+    "pcs" : [
+                {"id":"pcXX", "client_class":"0", "ip":"192.168.1.220", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc02", "client_class":"0", "ip":"10.145.45.62", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc03", "client_class":"0", "ip":"10.145.45.63", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc04", "client_class":"0", "ip":"10.145.45.64", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc05", "client_class":"0", "ip":"10.145.45.65", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc06", "client_class":"0", "ip":"10.145.45.66", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc07", "client_class":"0", "ip":"10.145.45.67", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc08", "client_class":"0", "ip":"10.145.45.68", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc09", "client_class":"0", "ip":"10.145.45.69", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc10", "client_class":"0", "ip":"10.145.45.70", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc11", "client_class":"0", "ip":"10.145.45.81", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc12", "client_class":"0", "ip":"10.145.45.82", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc13", "client_class":"0", "ip":"10.145.45.83", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"},
+                {"id":"pc17", "client_class":"0", "ip":"10.145.45.87", "username":"user", "password":"PASSWORD_GOES_HERE", "super_username":"labroot", "super_password":"PASSWORD_GOES_HERE"}
+            ],
+    "actions" :[
+                {"id":"1", "name":"Καθαρισμός Επιφάνειας Εργασίας", "file":"scripts/script_clean_desktop"},
+                {"id":"2", "name":"Αποστολή αρχείου", "file":"scripts/script_send_files"},
+                {"id":"3", "name":"Λήψη αρχείων", "file":"scripts/script_receive_files"},
+                {"id":"4", "name":"Επανεκκίνηση X", "file":"scripts/script_restart_x"},
+                {"id":"5", "name":"Επιστροφή αρχείων", "file":"scripts/script_return_files"},
+                {"id":"6", "name":"Τερματισμός εφαρμογής ή διεργασίας", "file":"scripts/script_kill_instances"},
+                {"id":"7", "name":"Tuxpaint - Διαγραφή starters", "file":"scripts/tuxpaint_delete_starters"},
+                {"id":"8", "name":"Tuxpaint - Αποστολή στον φάκελο starters", "file":"scripts/tuxpaint_send_starters"},
+                {"id":"9", "name":"Τερματισμός Υπολογιστή", "file":"scripts/script_halt_pc"}
+                ]
+}
