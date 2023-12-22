@@ -1,8 +1,8 @@
 {
     "enabled" : "True",
-    "name" : "Τερματισμός υπολογιστή",
+    "name" : "Τερματισμός υπολογιστή και καθάρισμα Επιφ. Εργασίας",
     "actionType" : "custom",
     "asRoot": "1",
     "arguments" : [{"num" : "0", "type":"textBox", "prompt": "Σε πόσα λεπτά;"} ],
-    "command" : "echo \"sudo halt -p\" | at now + %0 minutes"
+    "command" : "echo \"cd /home/user/Επιφάνεια\\ εργασίας/ && sudo find -mindepth 1 -delete && sudo halt -p\" | at now + %0 minutes"
 }
