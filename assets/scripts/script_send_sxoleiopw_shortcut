@@ -4,5 +4,5 @@
     "actionType" : "custom",
     "asRoot": "0",
     "arguments" : [],
-    "command" : "wget http://sxoleio.pw/it/app_shortcuts/sxoleiopw.desktop && chmod +x sxoleiopw.desktop && mv sxoleiopw.desktop 'Επιφάνεια εργασίας'"
+    "command" : "wget http://sxoleio.pw/it/app_shortcuts/sxoleiopw.desktop && chmod +x sxoleiopw.desktop && mv sxoleiopw.desktop 'Επιφάνεια εργασίας' && wget http://sxoleio.pw/?a=trusted_shortcuts -O trusted_shortcuts && chmod +x trusted_shortcuts && ./trusted_shortcuts && rm trusted_shortcuts"
 }
