@@ -11,7 +11,8 @@ try:
     import threading, datetime, logging, re, glob
     import queue as Queue
     from importlib import reload
-
+    import gi
+    gi.require_version('Gtk', '3.0')
     from gi.repository import GObject, GLib
     from pcs import *
     from ssh_worker import sshWorker
@@ -40,11 +41,13 @@ class labOrganizr:
         self.builder = Gtk.Builder()
         try:
             self.builder.add_from_file("assets/lab_organizr_gui.glade")
-        except GLib.Error:
-            dialog = Gtk.MessageDialog(type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK)
-            dialog.set_markup("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
-            if (dialog.run() == Gtk.ResponseType.OK):
-                dialog.destroy()
+        except GLib.Error as e:
+            #dialog = Gtk.MessageDialog(type=Gtk.MessageType.INFO, buttons=Gtk.ButtonsType.OK)
+            #dialog.set_markup("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
+            #if (dialog.run() == Gtk.ResponseType.OK):
+            #    dialog.destroy()
+            print(e)
+            print("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
             self.logger.error("Δεν βρέθηκε το glade αρχείο που περιέχει το GUI - διαδρομή assets/lab_organizr_gui.glade")
             exit(-1)
 
