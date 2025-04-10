@@ -2,6 +2,7 @@
   "known_shortcuts" : [
     { "app_name" : "45 παιχνίδια", "shortcut_name" : "alx_category_45_games.desktop" },
     { "app_name" : "17 νέα παιχνίδια", "shortcut_name" : "alx_category_17_games.desktop" },
+    { "app_name" : "Γρίφοι (Κατηγορία)", "shortcut_name" : "alx_category_grifoi.desktop" },
     { "app_name" : "Mozilla Firefox", "shortcut_name" : "firefox.desktop" },
     { "app_name" : "LibreOffice Writer", "shortcut_name" : "libreoffice-writer.desktop" },
     { "app_name" : "LibreOffice Calc", "shortcut_name" : "libreoffice-calc.desktop" },
