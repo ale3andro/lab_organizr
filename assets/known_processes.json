@@ -1,5 +1,6 @@
 {
   "known_processes" : [
+    { "app_name" : "Kill all!", "process_name" : "Thunar thunar flashplayer gcompris-qt tuxpaint firefox" },
     { "app_name" : "Mozilla Firefox", "process_name" : "firefox" },
     { "app_name" : "Thunar (file manager)", "process_name" : "Thunar" },
     { "app_name" : "FlashPlayer (games)", "process_name" : "flashplayer"},
